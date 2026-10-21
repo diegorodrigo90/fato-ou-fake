@@ -111,6 +111,7 @@ let sharePrep = null;
 let mode = "free"; // "free" = baralho solto; "daily" = rodada do dia
 let daily = null; // { key, ids, results: [{id, correct}] }
 let sourcesOpened = 0;
+let afterClear = null; // o que fazer depois de "Zerar progresso" ser confirmado
 const announced = new Set(); // cartas novas cujo evento de baralho já foi mostrado
 
 const byId = (id) => items.find((item) => item.id === id);
