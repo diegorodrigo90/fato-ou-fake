@@ -1,0 +1,17 @@
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
+
+node_modules
+dist
+.superpowers/
+.claude/
+.playwright-mcp/
+public/axe.tmp.js
+
+# ferramentas locais
+.vitest/
+.impeccable/
+.ignore
+.env
+.env.*
+dist-pages

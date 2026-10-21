@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350">
+  <defs>
+    <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="2" fill="#ffffff" opacity="0.22"/>
+    </pattern>
+  </defs>
+  <rect width="250" height="350" fill="#2a37e8"/>
+  <rect width="250" height="350" fill="url(#dots)"/>
+  <rect x="14" y="14" width="222" height="322" rx="14" fill="none" stroke="#ffd23f" stroke-width="3"/>
+  <circle cx="125" cy="175" r="62" fill="#1b2bd1" stroke="#ffd23f" stroke-width="4"/>
+  <circle cx="125" cy="175" r="48" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+  <path d="M96 176l17 17 33-38" fill="none" stroke="#3ddc97" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M104 142l42 66M146 142l-42 66" fill="none" stroke="#ff5fa2" stroke-width="8" stroke-linecap="round" opacity="0.0"/>
+  <text x="125" y="268" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="800" fill="#ffd23f" letter-spacing="2">FATO</text>
+  <text x="125" y="292" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="800" fill="#ff5fa2" letter-spacing="2">OU FAKE?</text>
+</svg>

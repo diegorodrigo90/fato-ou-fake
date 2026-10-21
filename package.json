@@ -1,0 +1,31 @@
+{
+  "name": "fato-ou-fake",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "tsx watch server/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server/index.js",
+    "test": "vitest run",
+    "build:pages": "tsx scripts/build-pages.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.5",
+    "hono": "4.13.13",
+    "hono-rate-limiter": "0.5.4",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "axe-core": "4.14.0",
+    "lucide-static": "1.60.0",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
+  },
+  "description": "Jogo de cartas de checagem: Fato ou Fake?"
+}

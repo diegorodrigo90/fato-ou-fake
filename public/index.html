@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fato ou Fake?</title>
+  <meta name="description" content="O jogo de cartas que testa se você sabe o que é fato e o que é fake. Toda carta vem com a fonte.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1b2bd1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1160" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main class="screen">
+    <h1 class="sr-only">Fato ou Fake?</h1>
+    <!-- ABERTURA / CARREGAMENTO -->
+    <section id="title" class="title" aria-label="Menu principal">
+      <p id="game-title" class="logo" aria-hidden="true">
+        <span class="logo-small">O jogo de cartas</span>
+        <span class="logo-big"><span class="logo-v">Fato</span><span class="logo-ou">ou</span><span class="logo-f">Fake?</span></span>
+        <span class="logo-edition">Edição 2º turno</span>
+      </p>
+      <div class="title-deck" aria-hidden="true"><span class="td td1"></span><span class="td td2"></span><span class="td td3"></span></div>
+      <p id="tip" class="tip">Embaralhando as cartas…</p>
+      <div id="title-stats" class="title-stats" hidden aria-label="Seu progresso">
+        <span class="pill"><span class="icon i-trophy" aria-hidden="true"></span><b id="ts-level"></b></span>
+        <span class="pill"><span class="icon i-star" aria-hidden="true"></span><b id="ts-points"></b></span>
+        <span class="pill"><span class="icon flame" aria-hidden="true"></span><b id="ts-best"></b></span>
+      </div>
+      <div class="title-actions">
+        <button id="play-btn" class="btn btn-next btn-play" type="button" disabled><span class="icon" aria-hidden="true"></span><span id="play-label">Embaralhando…</span></button>
+        <button id="daily-btn" class="btn btn-daily" type="button" disabled><span class="icon i-calendar" aria-hidden="true"></span><span class="daily-text"><span id="daily-label">Rodada do dia</span><span id="daily-pips" class="pips pips-mini" aria-hidden="true"></span></span><span id="daily-streak" class="daily-streak" hidden><span class="icon flame" aria-hidden="true"></span><b id="daily-streak-n"></b></span></button>
+      </div>
+      <div class="title-icons">
+        <button id="howto-btn" class="chip-btn" type="button"><span class="icon i-help" aria-hidden="true"></span><span>Como jogar</span></button>
+        <button id="about-btn" class="chip-btn" type="button"><span class="icon i-shield" aria-hidden="true"></span><span>Fontes</span></button>
+        <button id="ach-btn" class="chip-btn" type="button"><span class="icon i-trophy" aria-hidden="true"></span><span>Conquistas</span></button>
+      </div>
+      <div id="error" class="error" role="alert" hidden>
+        <p>Ops! Não conseguimos embaralhar as cartas. Confira a internet e tente de novo.</p>
+        <button id="retry" class="btn btn-ghost" type="button">Tentar de novo</button>
+      </div>
+      <p class="foot">Fatos com fonte. Não é propaganda.</p>
+    </section>
+
+    <!-- JOGO -->
+    <section id="play" class="play" hidden aria-label="Jogo">
+      <header class="hud">
+        <div class="hud-level">
+          <ol id="pips" class="pips" aria-hidden="true"></ol>
+          <p class="lvl" id="lvl-name">Curioso</p>
+          <div id="xp" class="xp" role="progressbar" aria-label="Progresso para o próximo nível" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="xp-fill" class="xp-fill"></span></div>
+        </div>
+        <p class="pts"><span id="pts">0</span> <small>pts</small></p>
+        <p class="streak" id="streak-chip"><span class="icon flame" aria-hidden="true"></span><span id="streak">0</span><span class="sr-only"> acertos seguidos</span></p>
+      </header>
+      <p id="fresh" class="fresh" role="status" hidden></p>
+
+      <div id="drag-call" class="drag-call" aria-hidden="true"><span class="dc dc-fake">← Fake</span><span class="dc dc-true">Fato →</span></div>
+
+      <div class="board">
+        <div class="deck">
+          <div id="flash" class="flash" data-result="right" aria-hidden="true" hidden>
+            <span class="flash-badge"><span class="icon"></span><strong id="flash-text"></strong><span id="flash-sub" class="flash-sub"></span></span>
+          </div>
+          <article id="card" class="card" tabindex="0" data-state="ask" data-rank="comum" aria-describedby="hint">
+            <div id="tilt" class="tilt">
+              <span id="rank" class="rank-tag" hidden></span>
+              <div class="face ask">
+                <header class="cardtop">
+                  <span class="cat"><span id="cat-icon" class="icon" aria-hidden="true"></span><span id="cat-label">Geral</span></span>
+                  <span id="num" class="num">Nº 000</span>
+                </header>
+                <div id="art" class="art" aria-hidden="true"><span class="art-icon"><span id="art-icon" class="icon icon-lg"></span></span></div>
+                <p id="subject" class="subject" hidden></p>
+                <p id="kicker" class="kicker">Circulou por aí</p>
+                <p id="claim" class="claim"></p>
+                <footer class="cardfoot" aria-hidden="true"><span>← Fake</span><span>Fato →</span></footer>
+                <span class="stamp stamp-true" aria-hidden="true">Fato</span>
+                <span class="stamp stamp-fake" aria-hidden="true">Fake</span>
+              </div>
+              <div class="face answer">
+                <div id="banner" class="result-banner" data-result="right">
+                  <span class="icon" aria-hidden="true"></span>
+                  <strong id="rb-title" class="rb-title"></strong>
+                  <span id="verdict" class="verdict"></span>
+                  <span id="rb-sub" class="rb-sub"></span>
+                </div>
+                <blockquote id="quote" class="quote"></blockquote>
+                <div class="fc">
+                  <p id="explain" class="explain"></p>
+                  <p id="clue" class="clue" hidden></p>
+                  <p id="status" class="status"></p>
+                </div>
+                <div class="srcrow">
+                  <ul id="sources" class="sources" aria-label="Fontes"></ul>
+                  <p class="rank-note" id="rank-note"></p>
+                </div>
+              </div>
+              <div class="glare-wrap" aria-hidden="true"><span id="foil" class="foil"></span><span id="glare" class="glare"></span></div>
+            </div>
+          </article>
+        </div>
+        <p id="hint" class="sr-only">Arraste a carta para a direita se for fato e para a esquerda se for fake. Depois de ver a checagem, arraste a carta para qualquer lado, toque nela ou em Próxima carta para continuar. Você também pode usar os botões ou as setas do teclado.</p>
+      </div>
+
+      <div id="answers" class="answers">
+        <button id="fake" class="btn btn-fake btn-big" type="button" disabled><span class="icon" aria-hidden="true"></span><span>Fake</span></button>
+        <button id="true" class="btn btn-true btn-big" type="button" disabled><span class="icon" aria-hidden="true"></span><span>Fato</span></button>
+      </div>
+      <div class="after">
+  <button id="next" class="btn btn-next" type="button" hidden>Próxima carta</button>
+        <div class="actions2">
+          <button id="share-card" class="btn btn-ghost btn-share" type="button" hidden><span class="icon" aria-hidden="true"></span><span class="sr-only">Compartilhar no WhatsApp</span></button>
+          <button id="details-btn" class="btn btn-ghost btn-details" type="button" hidden><span class="icon i-info" aria-hidden="true"></span><span>Detalhes</span></button>
+        </div>
+      </div>
+      <p id="share-card-msg" class="share-msg" role="status"></p>
+      <p id="milestone" class="milestone" role="status" hidden><span class="icon flame" aria-hidden="true"></span><span id="milestone-text"></span></p>
+    </section>
+
+    <!-- PLACAR -->
+    <section id="end" class="end" hidden aria-labelledby="end-title">
+      <h2 id="end-title">Seu placar</h2>
+      <p id="end-level" class="end-level"></p>
+      <p id="score" class="score"></p>
+      <p id="best" class="best"></p>
+      <p id="end-extra" class="best"></p>
+      <div class="end-actions">
+        <button id="again" class="btn btn-next" type="button">Continuar jogando</button>
+        <button id="share" class="btn btn-ghost" type="button">Compartilhar placar</button>
+        <button id="open-history2" class="btn btn-ghost btn-share" type="button"><span class="icon i-album" aria-hidden="true"></span><span>Meu álbum</span></button>
+      </div>
+      <p id="share-msg" class="share-msg" role="status"></p>
+    </section>
+
+    <!-- FIM DA RODADA DO DIA -->
+    <section id="round-end" class="end round-end" hidden aria-labelledby="re-title">
+      <p class="re-kicker">Rodada do dia · <span id="re-date"></span></p>
+      <h2 id="re-title">Rodada concluída</h2>
+      <div id="re-stars" class="re-stars" role="img" aria-label=""><span class="re-star"></span><span class="re-star"></span><span class="re-star"></span></div>
+      <p id="re-score" class="re-score"></p>
+      <p id="re-rank" class="re-rank"></p>
+      <ol id="re-grid" class="re-grid" aria-label="Suas respostas"></ol>
+      <p id="re-kinds" class="re-kinds"></p>
+      <p id="re-streak" class="re-streak" hidden></p>
+      <ul id="re-new" class="re-new" hidden></ul>
+      <p class="re-next">Próxima rodada em <b id="re-countdown"></b></p>
+      <div class="end-actions re-actions">
+        <button id="re-share" class="btn btn-next" type="button"><span class="icon i-share" aria-hidden="true"></span><span>Compartilhar imagem</span></button>
+        <div class="re-row">
+          <button id="re-again" class="btn btn-ghost" type="button">Continuar jogando</button>
+          <button id="re-album" class="btn btn-ghost" type="button">Meu álbum</button>
+        </div>
+      </div>
+      <p id="re-msg" class="share-msg" role="status"></p>
+    </section>
+
+    <!-- BARALHO ZERADO -->
+    <section id="empty" class="end" hidden aria-labelledby="empty-title">
+      <h2 id="empty-title">Você zerou o baralho!</h2>
+      <p class="best">Novas cartas chegam quando a base for atualizada. Volte mais tarde.</p>
+      <div class="end-actions">
+        <button id="stop2" class="btn btn-next" type="button">Ver meu placar</button>
+        <button id="open-history3" class="btn btn-ghost" type="button">Meu álbum</button>
+        <button id="clear2" class="btn btn-ghost" type="button">Zerar progresso e jogar de novo</button>
+      </div>
+    </section>
+
+    <!-- MEU ÁLBUM -->
+    <section id="history" class="history album" hidden aria-labelledby="history-title">
+      <header class="album-head">
+        <h2 id="history-title">Meu álbum</h2>
+        <p id="history-summary" class="album-count"></p>
+      </header>
+      <div class="xp album-bar" aria-hidden="true"><span id="album-fill" class="xp-fill"></span></div>
+      <div id="album-filters" class="album-filters" role="group" aria-label="Filtrar cartas">
+        <button type="button" class="album-filter" data-filter="all" aria-pressed="true">Todas <b></b></button>
+        <button type="button" class="album-filter" data-filter="right" aria-pressed="false">Acertos <b></b></button>
+        <button type="button" class="album-filter" data-filter="wrong" aria-pressed="false">Erros <b></b></button>
+        <button type="button" class="album-filter" data-filter="missing" aria-pressed="false">Faltam <b></b></button>
+      </div>
+      <div id="album-viewport" class="album-viewport">
+        <div id="album-track" class="album-track">
+          <ol id="album-before" class="album-grid album-side" aria-hidden="true" inert></ol>
+          <ol id="history-list" class="album-grid"></ol>
+          <ol id="album-after" class="album-grid album-side" aria-hidden="true" inert></ol>
+        </div>
+      </div>
+      <nav class="album-pager" aria-label="Páginas do álbum">
+        <button id="album-prev" class="album-flip" type="button" aria-label="Página anterior"><span aria-hidden="true">‹</span></button>
+        <p id="album-page" class="album-page" aria-live="polite"></p>
+        <button id="album-next" class="album-flip" type="button" aria-label="Próxima página"><span aria-hidden="true">›</span></button>
+      </nav>
+      <p id="clear-msg" class="share-msg" role="status"></p>
+    </section>
+
+    <p id="live" class="sr-only" aria-live="polite"></p>
+  </main>
+
+  <nav id="tabbar" class="tabbar" aria-label="Menu do jogo">
+    <button id="tab-home" class="tab" type="button"><span class="icon" aria-hidden="true"></span><span>Início</span></button>
+    <button id="tab-play" class="tab" type="button"><span class="icon" aria-hidden="true"></span><span>Jogo</span></button>
+    <button id="tab-score" class="tab" type="button"><span class="icon" aria-hidden="true"></span><span>Placar</span></button>
+    <button id="tab-album" class="tab" type="button"><span class="icon" aria-hidden="true"></span><span>Álbum</span></button>
+    <button id="tab-settings" class="tab" type="button"><span class="icon" aria-hidden="true"></span><span>Ajustes</span></button>
+    <button id="tab-sound" class="tab" type="button" aria-pressed="true" aria-label="Som"><span class="icon" aria-hidden="true"></span><span>Som</span></button>
+  </nav>
+
+  <dialog id="confirm" class="dialog" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <form method="dialog">
+      <header class="dlg-head"><h2 id="confirm-title">Zerar todo o seu progresso?</h2><button class="dlg-x" value="cancel" aria-label="Fechar"><span class="icon" aria-hidden="true"></span></button></header>
+      <p id="confirm-text"></p>
+      <div class="dialog-actions">
+        <button class="btn btn-ghost-ink" value="cancel" autofocus>Cancelar</button>
+        <button class="btn btn-fake" value="yes">Sim, zerar tudo</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="details" class="dialog dialog-wide" aria-labelledby="details-title">
+    <form method="dialog">
+      <header class="dlg-head"><h2 id="details-title">Detalhes da checagem</h2><button class="dlg-x" value="cancel" aria-label="Fechar"><span class="icon" aria-hidden="true"></span></button></header>
+      <div id="details-body" class="det"></div>
+      <div class="dialog-actions">
+        <button class="btn btn-next" value="ok" autofocus>Fechar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="settings" class="dialog dialog-wide" aria-labelledby="settings-title">
+    <form method="dialog">
+      <header class="dlg-head"><h2 id="settings-title">Configurações</h2><button class="dlg-x" value="cancel" aria-label="Fechar"><span class="icon" aria-hidden="true"></span></button></header>
+      <fieldset class="set-group">
+        <legend>Som</legend>
+        <label class="set-row"><span>Efeitos sonoros</span><input id="set-sfx" type="checkbox" role="switch"></label>
+        <label class="set-row"><span>Música de fundo<small>Suave, acompanha o jogo e fica mais viva com a sua sequência.</small></span><input id="set-music" type="checkbox" role="switch"></label>
+        <label class="set-row set-range"><span>Volume</span><input id="set-volume" type="range" min="0" max="100" step="5"></label>
+      </fieldset>
+      <fieldset class="set-group" id="set-phone">
+        <legend>Celular</legend>
+        <label class="set-row"><span>Vibração<small>Um toque leve ao acertar, errar e subir de nível.</small></span><input id="set-haptics" type="checkbox" role="switch"></label>
+      </fieldset>
+      <fieldset class="set-group">
+        <legend>Movimento</legend>
+        <label class="set-row"><span>Reduzir animações<small>Cartas, selos e eventos mais simples.</small></span><input id="set-motion" type="checkbox" role="switch"></label>
+        <label class="set-row"><span>Inclinação 3D da carta</span><input id="set-tilt" type="checkbox" role="switch"></label>
+        <label class="set-row"><span>Arrastar a carta<small>Desligue para jogar só com os botões.</small></span><input id="set-drag" type="checkbox" role="switch"></label>
+      </fieldset>
+      <fieldset class="set-group">
+        <legend>Aparência</legend>
+        <label class="set-row"><span>Cores para daltonismo<small>Acerto em azul e erro em laranja. Os ícones e o texto continuam.</small></span><input id="set-palette" type="checkbox" role="switch"></label>
+        <label class="set-row"><span>Texto maior</span><input id="set-text" type="checkbox" role="switch"></label>
+      </fieldset>
+      <fieldset class="set-group">
+        <legend>Progresso</legend>
+        <button id="set-reset" class="btn btn-ghost-ink" type="button">Zerar meu progresso</button>
+      </fieldset>
+      <div class="dialog-actions">
+        <button class="btn btn-next" value="ok" autofocus>Pronto</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="round-intro" class="round-intro" hidden aria-hidden="true">
+    <div class="ri-card"><span class="ri-kicker">Rodada do dia</span><strong id="ri-big" class="ri-big"></strong><span id="ri-sub" class="ri-sub"></span></div>
+  </div>
+
+  <dialog id="ach" class="dialog dialog-wide" aria-labelledby="ach-title">
+    <form method="dialog">
+      <header class="dlg-head"><h2 id="ach-title">Conquistas</h2><button class="dlg-x" value="cancel" aria-label="Fechar"><span class="icon" aria-hidden="true"></span></button></header>
+      <p id="ach-summary"></p>
+      <ul id="ach-list" class="ach-list"></ul>
+      <div class="dialog-actions">
+        <button class="btn btn-next" value="ok" autofocus>Fechar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="howto" class="dialog" aria-labelledby="howto-title">
+    <form method="dialog">
+      <header class="dlg-head"><h2 id="howto-title">Como jogar</h2><button class="dlg-x" value="cancel" aria-label="Fechar"><span class="icon" aria-hidden="true"></span></button></header>
+      <ol class="steps">
+        <li><strong>Leia a carta.</strong> É uma afirmação que circulou por aí.</li>
+        <li><strong>Arraste para a direita se for fato, para a esquerda se for fake.</strong> Ou use os botões.</li>
+        <li><strong>Confira a checagem.</strong> Cada resposta vem com as fontes para você ver com seus próprios olhos. Arraste a carta para qualquer lado para ver a próxima.</li>
+        <li><strong>Ganhe pontos.</strong> Acertos seguidos valem mais. Cartas raras e épicas têm mais fontes e dão bônus.</li>
+        <li><strong>Volte todo dia.</strong> A rodada do dia tem 10 cartas e vale conquistas.</li>
+      </ol>
+      <div class="dialog-actions">
+        <button class="btn btn-next" value="ok" autofocus>Entendi</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="about" class="dialog dialog-wide" aria-labelledby="about-title">
+    <form method="dialog">
+      <header class="dlg-head"><h2 id="about-title">Como escolhemos as fontes</h2><button class="dlg-x" value="cancel" aria-label="Fechar"><span class="icon" aria-hidden="true"></span></button></header>
+      <p>Nenhuma fonte é neutra por definição. Por isso só entram checagens de verificadores que seguem um código público de princípios (apartidarismo, transparência de fontes, de financiamento e de método) e dados de órgãos oficiais. Toda carta mostra a fonte, com o link para você conferir.</p>
+      <h3 class="about-h">Fontes aprovadas</h3>
+      <ul id="about-sources" class="about-list"></ul>
+      <h3 class="about-h">Equilíbrio das cartas</h3>
+      <p id="about-balance"></p>
+      <p id="about-contest" class="about-contest" hidden>Achou um erro? <a id="contest-link" href="#" target="_blank" rel="noopener noreferrer">Contestar uma carta</a>.</p>
+      <p class="about-small">Este jogo não é propaganda de candidato nem de partido, e nenhuma imagem retrata pessoa real.</p>
+      <div class="dialog-actions">
+        <button class="btn btn-next" value="ok" autofocus>Fechar</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
