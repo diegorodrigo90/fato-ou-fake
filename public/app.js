@@ -2,7 +2,7 @@ import { CONTEST_URL, POOL_URL, SOURCES_URL } from "./config.js";
 import { startAnalytics } from "./analytics.js";
 import { initInstall } from "./install.js";
 import {
-  verdictLabel, isHttpsUrl,
+  verdictLabel, isHttpsUrl, isRealDay,
   artSvg, categoryOf, subjectOf, diffNew, feedbackLine, judge, levelFor, milestoneFor, nextBalanced, nextStreak,
   pointsFor, rarityOf, shareCaption, shareEndless, swipeDecision, swipeDismiss,
 } from "./lib.js";
@@ -127,7 +127,7 @@ const seenIds = () => new Set(history.map((entry) => entry.id));
 const dailyIds = () => (daily ? daily.ids.filter((id) => byId(id)) : []);
 const dailyLeft = () => dailyIds().filter((id) => !daily.results.some((r) => r.id === id));
 const dailyDone = () => daily !== null && dailyIds().length > 0 && dailyLeft().length === 0;
-const loadDays = () => (Array.isArray(store.get("vf:dailyDays")) ? store.get("vf:dailyDays").filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)) : []);
+const loadDays = () => (Array.isArray(store.get("vf:dailyDays")) ? store.get("vf:dailyDays").filter(isRealDay) : []);
 
 function ensureDaily() {
   const key = dayKey();
@@ -419,7 +419,7 @@ function stopCountdown() {
 function startCountdown() {
   const tick = () => {
     el.reCountdown.textContent = formatCountdown(msUntilNextDay());
-    if (msUntilNextDay() > 86399000 && daily && daily.key !== dayKey()) location.reload(); // virou o dia com a tela aberta: carrega a rodada nova
+    if (daily && daily.key !== dayKey()) location.reload(); // virou o dia com a tela aberta: carrega a rodada nova
   };
   tick();
   countdownTimer = setInterval(tick, 1000);
@@ -888,7 +888,8 @@ async function answer(saidTrue) {
   store.set("vf:history", history);
   if (mode === "daily" && daily && !daily.results.some((r) => r.id === card.id)) {
     daily.results = [...daily.results, { id: card.id, correct }];
-    store.set("vf:daily", daily);
+    // Aba esquecida aberta depois da meia-noite: não grava a rodada de ontem por cima da de hoje.
+    if (daily.key === dayKey()) store.set("vf:daily", daily);
     renderPips(dailyIds().indexOf(card.id));
   }
   saveStats();

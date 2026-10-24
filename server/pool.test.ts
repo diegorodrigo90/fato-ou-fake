@@ -2,7 +2,7 @@ import { mkdtemp, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { createPoolSource, loadPool } from "./pool.js";
+import { MAX_POOL_BYTES, createPoolSource, loadPool } from "./pool.js";
 
 async function poolFile(content: string): Promise<string> {
   const dir = await mkdtemp(join(tmpdir(), "pool-"));
@@ -202,5 +202,26 @@ describe("approved source registry", () => {
     await expect(
       loadPool(await poolFile(withSource("Lupa", "https://www.agencialupa.org/checagem/x", "oficial"))),
     ).rejects.toThrow(/type/);
+  });
+});
+
+describe("limites do arquivo e do texto", () => {
+  it("rejects a URL inside explanation, clue or status", async () => {
+    for (const field of ["explanation", "clue", "status"]) {
+      const path = await poolFile(pool([item("a", "um", { [field]: "veja https://exemplo.com/x" })]));
+      await expect(loadPool(path)).rejects.toThrow(new RegExp(field));
+    }
+  });
+
+  it("rejects a pool file above the size cap", async () => {
+    const path = await poolFile(" ".repeat(MAX_POOL_BYTES + 1));
+    await expect(loadPool(path)).rejects.toThrow(/larger than/);
+  });
+
+  it("rejects a source url with credentials or a custom port", async () => {
+    for (const url of ["https://user@portal.stf.jus.br/a", "https://portal.stf.jus.br:8443/a"]) {
+      const sources = [{ label: "STF", type: "oficial", url, date: "2022-01-01" }];
+      await expect(loadPool(await poolFile(pool([item("a", "um", { sources })])))).rejects.toThrow(/credentials or a custom port/);
+    }
   });
 });

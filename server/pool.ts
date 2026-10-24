@@ -12,6 +12,11 @@ const sourceSchema = z.object({
   if (problem) ctx.addIssue({ code: "custom", message: problem });
 });
 
+const noUrl = (text: string) => !/https?:\/\//i.test(text);
+
+/** Teto do arquivo de cartas: uma escrita errada no volume não deve estourar a memória do servidor. */
+export const MAX_POOL_BYTES = 8 * 1024 * 1024;
+
 const itemSchema = z.object({
   id: z.string().min(1),
   claim: z
@@ -23,12 +28,12 @@ const itemSchema = z.object({
   author: z.enum(["flavio", "lula", "terceiros"]).optional(),
   /** Edição especial a que a carta pertence (ex.: debate da Globo). */
   event: z.enum(["debate-globo"]).optional(),
-  explanation: z.string().min(1).max(400),
-  clue: z.string().min(1).max(200).optional(),
+  explanation: z.string().min(1).max(400).refine(noUrl, "explanation must not contain a URL"),
+  clue: z.string().min(1).max(200).refine(noUrl, "clue must not contain a URL").optional(),
   category: z
     .enum(["tribunal", "dinheiro", "urna", "documento", "discurso", "instituicao", "lei"])
     .optional(),
-  status: z.string().min(1),
+  status: z.string().min(1).max(300).refine(noUrl, "status must not contain a URL"),
   asOf: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "asOf must be YYYY-MM-DD"),
   sources: z.array(sourceSchema).min(1),
 });
@@ -47,6 +52,7 @@ export type PoolItem = z.infer<typeof itemSchema>;
 export type Pool = z.infer<typeof poolSchema>;
 
 export async function loadPool(path: string): Promise<Pool> {
+  if ((await stat(path)).size > MAX_POOL_BYTES) throw new Error(`Pool file ${path} is larger than ${MAX_POOL_BYTES} bytes`);
   const raw = await readFile(path, "utf8");
   let json: unknown;
   try {
@@ -70,18 +76,22 @@ export interface PoolSource {
 
 /**
  * Loads the pool once (throws if invalid) and re-reads the file when its mtime changes.
- * A file that turns invalid never replaces the last good pool.
+ * A file that turns invalid never replaces the last good pool, and a slow older read
+ * never overwrites a newer one (each reload carries a sequence number).
  */
 export async function createPoolSource(path: string): Promise<PoolSource> {
   let pool = await loadPool(path);
   let mtime = (await stat(path)).mtimeMs;
+  let latest = 0;
   return {
     async current() {
       try {
         const next = (await stat(path)).mtimeMs;
         if (next !== mtime) {
           mtime = next;
-          pool = await loadPool(path);
+          const mine = ++latest;
+          const loaded = await loadPool(path);
+          if (mine === latest) pool = loaded;
         }
       } catch (error) {
         console.error(`pool reload failed, keeping the last valid pool: ${(error as Error).message}`);

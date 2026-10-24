@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isHttpsUrl, SETTINGS_DEFAULTS, verdictLabel, artSvg, categoryOf, diffNew, feedbackLine, judge, levelFor, middleEllipsis, milestoneFor, normalizeSettings, nextBalanced, nextStreak, nextUnseen, pointsFor, rarityOf, subjectOf, shareCaption, shareEndless, swipeDecision, swipeDismiss, wrapLines } from "./lib.js";
+import { isHttpsUrl, isRealDay, SETTINGS_DEFAULTS, verdictLabel, artSvg, categoryOf, diffNew, feedbackLine, judge, levelFor, middleEllipsis, milestoneFor, normalizeSettings, nextBalanced, nextStreak, nextUnseen, pointsFor, rarityOf, subjectOf, shareCaption, shareEndless, swipeDecision, swipeDismiss, wrapLines } from "./lib.js";
 
 describe("judge", () => {
   it("counts a 'true' answer correct only for a verdadeiro card", () => {
@@ -408,5 +408,17 @@ describe("isHttpsUrl", () => {
     expect(isHttpsUrl("")).toBe(false);
     expect(isHttpsUrl(undefined)).toBe(false);
     expect(isHttpsUrl(42)).toBe(false);
+  });
+});
+
+describe("isRealDay", () => {
+  it("accepts calendar days and rejects impossible dates and junk", () => {
+    expect(isRealDay("2026-10-24")).toBe(true);
+    expect(isRealDay("2028-02-29")).toBe(true);
+    expect(isRealDay("2026-02-29")).toBe(false);
+    expect(isRealDay("2026-13-99")).toBe(false);
+    expect(isRealDay("2026-1-5")).toBe(false);
+    expect(isRealDay("")).toBe(false);
+    expect(isRealDay(20261024)).toBe(false);
   });
 });

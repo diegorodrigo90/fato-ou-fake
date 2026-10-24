@@ -32,6 +32,8 @@ function socketAddress(c: Context): string | undefined {
 
 export function createApp(source: Pool | PoolSource, opts: AppOptions = {}): Hono {
   const app = new Hono();
+  // O JSON do baralho (cerca de 1,3 MB) é serializado uma vez por versão do pool, não a cada requisição.
+  const serialized = new WeakMap<object, string>();
   const currentPool = async (): Promise<Pool> => ("current" in source ? source.current() : source);
 
   app.use(
@@ -74,7 +76,15 @@ export function createApp(source: Pool | PoolSource, opts: AppOptions = {}): Hon
   );
 
   app.get("/healthz", (c) => c.text("ok"));
-  app.get("/api/pool", async (c) => c.json(await currentPool()));
+  app.get("/api/pool", async (c) => {
+    const pool = await currentPool();
+    let body = serialized.get(pool);
+    if (body === undefined) {
+      body = JSON.stringify(pool);
+      serialized.set(pool, body);
+    }
+    return c.body(body, 200, { "Content-Type": "application/json" });
+  });
   app.get("/api/sources", (c) =>
     c.json({
       checkedOn: IFCN_CHECKED_ON,

@@ -9,3 +9,5 @@ docs
 **/*.test.ts
 **/*.test.js
 scripts
+.env
+.env.*

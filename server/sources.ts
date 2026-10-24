@@ -91,6 +91,7 @@ export function checkSource(source: { label: string; url: string; type?: string 
   let path: string;
   try {
     const parsed = new URL(source.url);
+    if (parsed.username || parsed.password || parsed.port) return "url must not carry credentials or a custom port";
     host = parsed.hostname.toLowerCase();
     path = parsed.pathname;
   } catch {
