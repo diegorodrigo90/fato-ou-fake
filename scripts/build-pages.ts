@@ -1,5 +1,6 @@
 // Gera o site estático para o GitHub Pages em dist-pages/: o jogo, as cartas e a lista de fontes como arquivos.
 // Valida o baralho com o mesmo zod do servidor, então uma carta fora das regras quebra o build.
+import { statSync } from "node:fs";
 import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { loadPool } from "../server/pool.js";
@@ -10,9 +11,11 @@ const poolPath = process.env.POOL_PATH ?? "data/pool.json";
 
 await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
+// Lista de permissão: só tipos de arquivo do jogo vão para o site; um arquivo qualquer em public/ não é publicado.
+const PUBLISHED = /\.(html|css|js|svg|png|webmanifest)$|(^|[\\/])LICENSE$/;
 await cp("public", out, {
   recursive: true,
-  filter: (src) => !/\.test\.js$|axe\.tmp\.js$/.test(src),
+  filter: (src) => statSync(src).isDirectory() || (PUBLISHED.test(src) && !/\.test\.js$|axe\.tmp\.js$/.test(src)),
 });
 
 const pool = await loadPool(poolPath);
@@ -45,10 +48,15 @@ const csp = [
   "base-uri 'none'",
 ].join("; ");
 const html = await readFile(join(out, "index.html"), "utf8");
-await writeFile(
-  join(out, "index.html"),
-  html.replace('<meta charset="utf-8">', `<meta charset="utf-8">\n  <meta http-equiv="Content-Security-Policy" content="${csp}">`),
+const secured = html.replace(
+  '<meta charset="utf-8">',
+  `<meta charset="utf-8">\n  <meta http-equiv="Content-Security-Policy" content="${csp}">\n  <meta name="referrer" content="no-referrer">`,
 );
+// A troca acima falha em silêncio se o index.html mudar: sem a política no HTML, o build não pode sair.
+if (!secured.includes('http-equiv="Content-Security-Policy"') || !secured.includes('name="referrer"')) {
+  throw new Error("index.html sem a política de conteúdo: o <meta charset> mudou?");
+}
+await writeFile(join(out, "index.html"), secured);
 await writeFile(join(out, ".nojekyll"), "");
 
 // Sob /nome-do-repo/ qualquer caminho começando com "/" aponta para o lugar errado.

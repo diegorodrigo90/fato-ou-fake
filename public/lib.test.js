@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { SETTINGS_DEFAULTS, verdictLabel, artSvg, categoryOf, diffNew, feedbackLine, judge, levelFor, middleEllipsis, milestoneFor, normalizeSettings, nextBalanced, nextStreak, nextUnseen, pointsFor, rarityOf, subjectOf, shareCaption, shareEndless, swipeDecision, swipeDismiss, wrapLines } from "./lib.js";
+import { isHttpsUrl, SETTINGS_DEFAULTS, verdictLabel, artSvg, categoryOf, diffNew, feedbackLine, judge, levelFor, middleEllipsis, milestoneFor, normalizeSettings, nextBalanced, nextStreak, nextUnseen, pointsFor, rarityOf, subjectOf, shareCaption, shareEndless, swipeDecision, swipeDismiss, wrapLines } from "./lib.js";
 
 describe("judge", () => {
   it("counts a 'true' answer correct only for a verdadeiro card", () => {
@@ -395,5 +395,18 @@ describe("nextBalanced across authors", () => {
   it("falls back to the remaining groups when one runs out", () => {
     const seen = new Set(["l0", "l1", "l2"]);
     for (let i = 0; i < 20; i++) expect(nextBalanced(skewed, seen, null, null).author).not.toBe("lula");
+  });
+});
+
+describe("isHttpsUrl", () => {
+  it("accepts https links and rejects other schemes and junk", () => {
+    expect(isHttpsUrl("https://www.aosfatos.org/noticias/x/")).toBe(true);
+    expect(isHttpsUrl("http://www.aosfatos.org/")).toBe(false);
+    expect(isHttpsUrl("javascript:alert(1)")).toBe(false);
+    expect(isHttpsUrl("data:text/html,<b>x</b>")).toBe(false);
+    expect(isHttpsUrl("//aosfatos.org/x")).toBe(false);
+    expect(isHttpsUrl("")).toBe(false);
+    expect(isHttpsUrl(undefined)).toBe(false);
+    expect(isHttpsUrl(42)).toBe(false);
   });
 });

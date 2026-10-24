@@ -2,7 +2,7 @@ import { CONTEST_URL, POOL_URL, SOURCES_URL } from "./config.js";
 import { startAnalytics } from "./analytics.js";
 import { initInstall } from "./install.js";
 import {
-  verdictLabel,
+  verdictLabel, isHttpsUrl,
   artSvg, categoryOf, subjectOf, diffNew, feedbackLine, judge, levelFor, milestoneFor, nextBalanced, nextStreak,
   pointsFor, rarityOf, shareCaption, shareEndless, swipeDecision, swipeDismiss,
 } from "./lib.js";
@@ -546,7 +546,7 @@ async function shareDaily() {
       await navigator.share({ files: [file], text });
       el.reMsg.textContent = "";
     } else {
-      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
       el.reMsg.textContent = "Abrimos o WhatsApp com o resultado. A imagem só vai pelo celular.";
     }
   } catch (error) {
@@ -909,7 +909,7 @@ async function answer(saidTrue) {
   el.clue.textContent = card.clue ? `O que denunciava: ${card.clue}` : "";
   el.status.textContent = card.status;
   el.sources.replaceChildren(
-    ...card.sources.slice(0, 3).map((source) => {
+    ...card.sources.filter((source) => isHttpsUrl(source.url)).slice(0, 3).map((source) => {
       const li = document.createElement("li");
       const a = document.createElement("a");
       a.href = source.url;
@@ -987,7 +987,7 @@ function openDetails(card) {
   const verdict = node("p", verdictLabel(card), "det-verdict");
   verdict.dataset.verdict = card.verdict;
   const list = document.createElement("ul");
-  for (const source of card.sources) {
+  for (const source of card.sources.filter((item) => isHttpsUrl(item.url))) {
     const li = document.createElement("li");
     const a = document.createElement("a");
     a.href = source.url;
@@ -1240,7 +1240,7 @@ async function shareCard() {
       el.shareCardMsg.textContent = "";
     } else {
       // Sem compartilhamento de arquivo (computador): abre o WhatsApp com a legenda e os links.
-      window.open(`https://wa.me/?text=${encodeURIComponent(caption)}`, "_blank", "noopener");
+      window.open(`https://wa.me/?text=${encodeURIComponent(caption)}`, "_blank", "noopener,noreferrer");
       el.shareCardMsg.textContent = "Abrimos o WhatsApp com o texto e os links. A imagem só vai pelo celular.";
     }
   } catch (error) {

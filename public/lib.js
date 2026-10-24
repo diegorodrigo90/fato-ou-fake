@@ -369,3 +369,18 @@ export function normalizeSettings(raw) {
     text: choice("text", ["normal", "large"]),
   };
 }
+
+/**
+ * Defesa em profundidade: o servidor e o build já só aceitam links https de fontes aprovadas,
+ * mas o cliente também não monta um link que não seja https (por exemplo javascript: ou data:).
+ * @param {unknown} url
+ * @returns {boolean}
+ */
+export function isHttpsUrl(url) {
+  if (typeof url !== "string") return false;
+  try {
+    return new URL(url).protocol === "https:";
+  } catch {
+    return false;
+  }
+}
