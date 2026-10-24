@@ -34,7 +34,16 @@ await writeFile(
 );
 
 // O Pages não envia cabeçalhos, então a política de conteúdo vai no próprio HTML.
-const csp = "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'";
+// O Cloudflare Web Analytics entra na política só quando há token em config.js.
+const analytics = /ANALYTICS_TOKEN = "[^"]+"/.test(config);
+const csp = [
+  "default-src 'self'",
+  `script-src 'self'${analytics ? " https://static.cloudflareinsights.com" : ""}`,
+  "style-src 'self'",
+  `connect-src 'self'${analytics ? " https://cloudflareinsights.com" : ""}`,
+  "img-src 'self' data:",
+  "base-uri 'none'",
+].join("; ");
 const html = await readFile(join(out, "index.html"), "utf8");
 await writeFile(
   join(out, "index.html"),

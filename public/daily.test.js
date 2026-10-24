@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ACHIEVEMENTS, DAILY_SIZE, bestDayStreak, currentDayStreak, dailyDeck, dailyShareText, dayKey, formatCountdown, kindOf, msUntilNextDay, newlyUnlocked, roundRank, starsFor, tallyHits, unlockedIds } from "./daily.js";
+import { ACHIEVEMENTS, DAILY_SIZE, bestDayStreak, currentDayStreak, EVENT_DAYS, EVENT_SIZE, dailyDeck, dailyShareText, dayKey, eventForDay, formatCountdown, kindOf, msUntilNextDay, newlyUnlocked, roundDeck, roundName, roundRank, starsFor, tallyHits, unlockedIds } from "./daily.js";
 
 const card = (id, verdict, author, claim = "Segundo Lula, algo.") => ({ id, verdict, author, claim });
 const pool = [
@@ -169,5 +169,35 @@ describe("msUntilNextDay and formatCountdown", () => {
     expect(formatCountdown(3661000)).toBe("01:01:01");
     expect(formatCountdown(86399000)).toBe("23:59:59");
     expect(formatCountdown(-5)).toBe("00:00:00");
+  });
+});
+
+describe("rodada especial", () => {
+  const withEvent = [
+    ...pool,
+    ...Array.from({ length: 20 }, (_, i) => ({ ...card(`et${i}`, "verdadeiro", i % 2 ? "lula" : "flavio"), event: "debate-globo" })),
+    ...Array.from({ length: 10 }, (_, i) => ({ ...card(`ef${i}`, "falso", i % 2 ? "lula" : "flavio"), event: "debate-globo" })),
+  ];
+  const [first, second] = Object.keys(EVENT_DAYS).sort();
+
+  it("usa só cartas da edição nos dias especiais, sem repetir de um dia para o outro", () => {
+    const a = roundDeck(withEvent, first);
+    const b = roundDeck(withEvent, second);
+    expect(a.every((id) => /^e[tf]/.test(id))).toBe(true);
+    expect(b.every((id) => /^e[tf]/.test(id))).toBe(true);
+    expect(a).toHaveLength(EVENT_SIZE);
+    expect(b).toHaveLength(EVENT_SIZE);
+    expect(a.filter((id) => b.includes(id))).toEqual([]);
+  });
+
+  it("volta à rodada normal em dia comum ou quando faltam cartas da edição", () => {
+    expect(roundDeck(withEvent, "2026-10-21")).toEqual(dailyDeck(withEvent, "2026-10-21"));
+    expect(roundDeck(pool, first)).toEqual(dailyDeck(pool, first));
+  });
+
+  it("dá nome à rodada", () => {
+    expect(eventForDay(first)).toBe("debate-globo");
+    expect(roundName(first)).toBe("Especial Debate");
+    expect(roundName("2026-10-21")).toBe("Rodada do dia");
   });
 });

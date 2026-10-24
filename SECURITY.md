@@ -8,7 +8,7 @@ Responda com o que você encontrou, como reproduzir e o impacto. Eu leio, confir
 
 ## O que o projeto já faz
 
-- Sem coleta de dados pessoais, sem cookies, sem analytics.
+- Sem coleta de dados pessoais e sem cookies. Só contagem agregada de acessos (Cloudflare Web Analytics, sem identificador).
 - CSP restrita, `X-Content-Type-Options: nosniff`, `Referrer-Policy` e limite de requisições.
 - Entrada validada com zod; cartas com fonte fora do registro aprovado não sobem.
 - Imagem Docker com usuário sem privilégios e `npm audit --omit=dev` sem vulnerabilidades.

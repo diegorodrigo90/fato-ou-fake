@@ -578,7 +578,8 @@ body::before {
 
 .card[data-state="answer"] {
   cursor: default;
-  touch-action: auto;
+  /* pan-y: o texto da checagem rola na vertical e o arrasto na horizontal chega ao jogo (com auto, o navegador cancelava o gesto no celular) */
+  touch-action: pan-y;
 }
 
 .answer {
@@ -1847,6 +1848,13 @@ html[data-motion="reduce"] .td {
   animation: none;
 }
 
+.set-hint {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
 .set-group {
   display: grid;
   gap: 0.25rem;
@@ -1947,7 +1955,9 @@ html[data-motion="reduce"] .td {
 .play,
 .title {
   max-width: 100%;
+  min-width: 0;
 }
+
 
 /* Barra inferior: encostada na base da tela, com ícone e rótulo, respeitando a área segura do celular */
 .tabbar {
@@ -2617,7 +2627,7 @@ html {
 
 .btn-daily {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem;
   align-items: center;
   gap: 0.625rem;
   min-height: 3.5rem;
@@ -2626,7 +2636,15 @@ html {
   background: linear-gradient(180deg, #ff7ab6 0%, #ff5fa2 100%);
   color: #12186b;
   box-shadow: 0 0.25rem 0 #9b2d63, var(--shadow);
-  text-align: left;
+  text-align: center;
+}
+
+.btn-daily .icon {
+  justify-self: start;
+}
+
+.btn-daily .daily-streak {
+  justify-self: end;
 }
 
 .btn-daily:disabled {
@@ -2650,8 +2668,16 @@ html {
 
 .daily-text {
   display: grid;
+  min-width: 0;
+  justify-items: center;
   gap: 0.25rem;
   font-weight: 800;
+}
+
+.daily-tag {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .daily-streak {
@@ -3280,4 +3306,248 @@ html[data-motion="reduce"] .pip[data-state="current"] {
 
 .album-track .album-grid {
   align-content: start;
+}
+
+/* Aviso da edição especial (abre uma vez por pessoa) */
+.i-mic { --icon: url("./icons/mic.svg"); }
+
+.dialog.event-ad {
+  inset: 0;
+  width: min(92vw, 23rem);
+  max-width: none;
+  max-height: min(92dvh, 40rem);
+  margin: auto;
+  border-radius: 1.5rem;
+  padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+  border: 4px solid #ffd23f;
+  background: radial-gradient(120% 80% at 50% 0%, var(--felt-hi) 0%, var(--felt-mid) 55%, var(--felt-lo) 100%);
+  color: var(--on-ground);
+  text-align: center;
+}
+
+.dialog.event-ad[open] {
+  animation: ad-pop 420ms linear(0, 0.55 18%, 1.12 42%, 0.97 62%, 1 80%, 1);
+}
+
+.dialog.event-ad.closing {
+  animation: ad-out 240ms cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+.dialog.event-ad.closing::backdrop {
+  animation: ad-fade 240ms ease-in reverse forwards;
+}
+
+.dialog.event-ad::backdrop {
+  animation: ad-fade 300ms ease-out;
+}
+
+@keyframes ad-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes ad-out {
+  to {
+    transform: scale(0.8) rotate(3deg) translateY(1rem);
+    opacity: 0;
+  }
+}
+
+@keyframes ad-stamp {
+  from {
+    transform: scale(2.2) rotate(-14deg);
+    opacity: 0;
+  }
+}
+
+@keyframes ad-rise {
+  from {
+    transform: translateY(0.75rem) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes ad-pop {
+  from {
+    transform: scale(0.7) rotate(-4deg);
+    opacity: 0;
+  }
+}
+
+.event-ad form {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+}
+
+.ea-sticker {
+  padding: 0.375rem 1rem;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--fake);
+  box-shadow: 0 0.1875rem 0 rgb(0 0 0 / 0.35);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: rotate(-3deg);
+  animation: ad-stamp 360ms 260ms cubic-bezier(0.23, 1, 0.32, 1) backwards;
+}
+
+.ea-chips li {
+  animation: ad-rise 360ms cubic-bezier(0.23, 1, 0.32, 1) backwards;
+}
+
+.ea-chips li:nth-child(1) { animation-delay: 380ms; }
+.ea-chips li:nth-child(2) { animation-delay: 460ms; }
+.ea-chips li:nth-child(3) { animation-delay: 540ms; }
+
+.ea-mic {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--pop);
+  box-shadow: 0 0.25rem 0 rgb(0 0 0 / 0.35);
+  color: var(--ink);
+  animation: ad-bob 1.8s ease-in-out infinite;
+}
+
+.ea-mic .icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+@keyframes ad-bob {
+  50% {
+    transform: translateY(-0.25rem) rotate(4deg);
+  }
+}
+
+.dialog .ea-title {
+  display: grid;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 4px 0 rgb(0 0 0 / 0.35);
+  transform: rotate(-2deg);
+}
+
+@media (max-height: 700px) {
+  .ea-mic {
+    display: none;
+  }
+
+  .event-ad form {
+    gap: 0.5rem;
+  }
+}
+
+.ea-hi {
+  color: var(--pop);
+  font-size: clamp(2.5rem, 14vw, 3.5rem);
+}
+
+.ea-lo {
+  font-size: clamp(1.5rem, 8vw, 2rem);
+  letter-spacing: 0.08em;
+}
+
+.dialog .ea-text {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--on-ground-soft);
+}
+
+.ea-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ea-chips li {
+  padding: 0.25rem 0.625rem;
+  border: 2px solid rgb(255 255 255 / 0.55);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 800;
+}
+
+.dialog.event-ad .dialog-actions {
+  position: static;
+  width: 100%;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  background: none;
+}
+
+.ea-play {
+  animation: daily-pulse 1.8s ease-in-out infinite;
+}
+
+.event-ad .btn.ea-later {
+  min-height: 2.75rem;
+  color: var(--on-ground);
+  border-color: rgb(255 255 255 / 0.55);
+}
+
+.dialog.event-ad .btn:focus-visible {
+  outline-color: var(--on-ground);
+}
+
+html[data-motion="reduce"] .dialog.event-ad[open],
+html[data-motion="reduce"] .dialog.event-ad::backdrop,
+html[data-motion="reduce"] .ea-mic,
+html[data-motion="reduce"] .ea-play,
+html[data-motion="reduce"] .ea-sticker,
+html[data-motion="reduce"] .ea-chips li {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog.event-ad[open],
+  .dialog.event-ad::backdrop,
+  .ea-mic,
+  .ea-play,
+  .ea-sticker,
+  .ea-chips li {
+    animation: none;
+  }
+}
+
+/* 320 px: os três atalhos (Como jogar, Fontes, Conquistas) somavam mais que a largura útil e empurravam o menu todo */
+@media (max-width: 359px) {
+  .title-icons {
+    gap: 0.5rem;
+  }
+
+  .chip-btn {
+    min-width: 0;
+    padding-inline: 0.5rem;
+  }
+}
+
+/* 15 bolinhas da rodada especial precisam caber entre o ícone e a sequência em telas até 399 px */
+@media (max-width: 399px) {
+  .pips-mini {
+    gap: 0.1875rem;
+  }
+
+  .pips-mini .pip {
+    flex-basis: 0.4375rem;
+    height: 0.5rem;
+  }
 }

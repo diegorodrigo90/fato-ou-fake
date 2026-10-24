@@ -20,7 +20,7 @@ Jogo de cartas "Fato ou Fake?": a pessoa arrasta uma afirmação que circulou po
 
 ## Constraints
 
-- Sem coleta de dados, sem cookies, sem analytics, sem automação de buscas em segundo plano.
+- Sem coleta de dados pessoais, sem cookies, sem automação de buscas em segundo plano. Única medição permitida (decisão de 2026-10-24): contagem agregada de acessos pelo Cloudflare Web Analytics, sem cookies nem identificador.
 - Prioridades permanentes: segurança, performance, UI, UX e acessibilidade (WCAG 2.2 AA).
 - Texto da interface em pt-br com acentuação correta.
 - PoC privada. O usuário decidiu (2026-10-20) usar cartas **reais** de verificadores aprovados, e não frases de exemplo; por isso o jogo só pode ser mostrado em teste fechado (acesso com senha, noindex) até o parecer do advogado eleitoral. Nada de divulgação pública antes disso.

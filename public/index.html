@@ -10,6 +10,7 @@
   <meta name="theme-color" content="#1b2bd1" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0b1160" media="(prefers-color-scheme: dark)">
   <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-192.png">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./app.js"></script>
@@ -33,7 +34,7 @@
       </div>
       <div class="title-actions">
         <button id="play-btn" class="btn btn-next btn-play" type="button" disabled><span class="icon" aria-hidden="true"></span><span id="play-label">Embaralhando…</span></button>
-        <button id="daily-btn" class="btn btn-daily" type="button" disabled><span class="icon i-calendar" aria-hidden="true"></span><span class="daily-text"><span id="daily-label">Rodada do dia</span><span id="daily-pips" class="pips pips-mini" aria-hidden="true"></span></span><span id="daily-streak" class="daily-streak" hidden><span class="icon flame" aria-hidden="true"></span><b id="daily-streak-n"></b></span></button>
+        <button id="daily-btn" class="btn btn-daily" type="button" disabled><span class="icon i-calendar" aria-hidden="true"></span><span class="daily-text"><span id="daily-tag" class="daily-tag" hidden></span><span id="daily-label">Rodada do dia</span><span id="daily-pips" class="pips pips-mini" aria-hidden="true"></span></span><span id="daily-streak" class="daily-streak" hidden><span class="icon flame" aria-hidden="true"></span><b id="daily-streak-n"></b></span></button>
       </div>
       <div class="title-icons">
         <button id="howto-btn" class="chip-btn" type="button"><span class="icon i-help" aria-hidden="true"></span><span>Como jogar</span></button>
@@ -105,7 +106,7 @@
             </div>
           </article>
         </div>
-        <p id="hint" class="sr-only">Arraste a carta para a direita se for fato e para a esquerda se for fake. Depois de ver a checagem, arraste a carta para qualquer lado, toque nela ou em Próxima carta para continuar. Você também pode usar os botões ou as setas do teclado.</p>
+        <p id="hint" class="sr-only">Arraste a carta para a direita se for fato e para a esquerda se for fake. Depois de ver a checagem, arraste a carta para qualquer lado ou use o botão Próxima carta para continuar. Você também pode usar os botões ou as setas do teclado.</p>
       </div>
 
       <div id="answers" class="answers">
@@ -140,7 +141,7 @@
 
     <!-- FIM DA RODADA DO DIA -->
     <section id="round-end" class="end round-end" hidden aria-labelledby="re-title">
-      <p class="re-kicker">Rodada do dia · <span id="re-date"></span></p>
+      <p class="re-kicker"><span id="re-name">Rodada do dia</span> · <span id="re-date"></span></p>
       <h2 id="re-title">Rodada concluída</h2>
       <div id="re-stars" class="re-stars" role="img" aria-label=""><span class="re-star"></span><span class="re-star"></span><span class="re-star"></span></div>
       <p id="re-score" class="re-score"></p>
@@ -256,6 +257,11 @@
         <label class="set-row"><span>Cores para daltonismo<small>Acerto em azul e erro em laranja. Os ícones e o texto continuam.</small></span><input id="set-palette" type="checkbox" role="switch"></label>
         <label class="set-row"><span>Texto maior</span><input id="set-text" type="checkbox" role="switch"></label>
       </fieldset>
+      <fieldset class="set-group" id="set-install">
+        <legend>Aplicativo</legend>
+        <button id="set-install-btn" class="btn btn-next" type="button" hidden>Instalar o jogo no celular</button>
+        <p id="set-install-hint" class="set-hint">Instale o jogo para abrir pela tela inicial, em tela cheia.</p>
+      </fieldset>
       <fieldset class="set-group">
         <legend>Progresso</legend>
         <button id="set-reset" class="btn btn-ghost-ink" type="button">Zerar meu progresso</button>
@@ -267,7 +273,7 @@
   </dialog>
 
   <div id="round-intro" class="round-intro" hidden aria-hidden="true">
-    <div class="ri-card"><span class="ri-kicker">Rodada do dia</span><strong id="ri-big" class="ri-big"></strong><span id="ri-sub" class="ri-sub"></span></div>
+    <div class="ri-card"><span id="ri-name" class="ri-kicker">Rodada do dia</span><strong id="ri-big" class="ri-big"></strong><span id="ri-sub" class="ri-sub"></span></div>
   </div>
 
   <dialog id="ach" class="dialog dialog-wide" aria-labelledby="ach-title">
@@ -277,6 +283,24 @@
       <ul id="ach-list" class="ach-list"></ul>
       <div class="dialog-actions">
         <button class="btn btn-next" value="ok" autofocus>Fechar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="event-ad" class="dialog event-ad" aria-labelledby="event-ad-title" aria-describedby="event-ad-text">
+    <form method="dialog">
+      <span class="ea-sticker">Novo no jogo</span>
+      <span class="ea-mic" aria-hidden="true"><span class="icon i-mic"></span></span>
+      <h2 id="event-ad-title" class="ea-title"><span class="ea-hi">Debate</span><span class="ea-lo">Lula x Flávio</span></h2>
+      <p id="event-ad-text" class="ea-text">Quem falou a verdade no debate de sexta (23/10)? Teste o que você ouviu: falas de Lula e de Flávio Bolsonaro já conferidas por verificadores de fatos. Você decide e vê a fonte de cada uma.</p>
+      <ul class="ea-chips" aria-label="Detalhes">
+        <li>15 cartas</li>
+        <li>Os dois candidatos</li>
+        <li>Com fonte</li>
+      </ul>
+      <div class="dialog-actions">
+        <button class="btn btn-next ea-play" value="play" autofocus>Jogar agora</button>
+        <button class="btn btn-ghost ea-later" value="later">Agora não</button>
       </div>
     </form>
   </dialog>

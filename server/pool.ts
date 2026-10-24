@@ -21,6 +21,8 @@ const itemSchema = z.object({
     .refine((claim) => !/https?:\/\//i.test(claim), "claim must not contain a URL"),
   verdict: z.enum(["verdadeiro", "falso"]),
   author: z.enum(["flavio", "lula", "terceiros"]).optional(),
+  /** Edição especial a que a carta pertence (ex.: debate da Globo). */
+  event: z.enum(["debate-globo"]).optional(),
   explanation: z.string().min(1).max(400),
   clue: z.string().min(1).max(200).optional(),
   category: z

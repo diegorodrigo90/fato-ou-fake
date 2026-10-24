@@ -1,4 +1,6 @@
 import { CONTEST_URL, POOL_URL, SOURCES_URL } from "./config.js";
+import { startAnalytics } from "./analytics.js";
+import { initInstall } from "./install.js";
 import {
   verdictLabel,
   artSvg, categoryOf, subjectOf, diffNew, feedbackLine, judge, levelFor, milestoneFor, nextBalanced, nextStreak,
@@ -10,7 +12,9 @@ import * as settings from "./settings.js";
 import { burst, dealEvent, shuffleIntro } from "./events.js";
 import { albumView, rowsFor } from "./album.js";
 import { renderDailyShareImage, renderShareImage } from "./share.js";
-import { ACHIEVEMENTS, DAILY_SIZE, bestDayStreak, currentDayStreak, dailyDeck, dailyShareText, dayKey, kindOf, formatCountdown, msUntilNextDay, newlyUnlocked, roundRank, starsFor, tallyHits, unlockedIds } from "./daily.js";
+import { ACHIEVEMENTS, DAILY_SIZE, bestDayStreak, currentDayStreak, dailyShareText, dayKey, kindOf, formatCountdown, msUntilNextDay, newlyUnlocked, roundDeck, roundName, roundRank, eventForDay, EVENT_TAGS, starsFor, tallyHits, unlockedIds } from "./daily.js";
+
+startAnalytics();
 
 const THRESHOLD = 90;
 const POLL_MS = 60_000;
@@ -30,10 +34,10 @@ const el = Object.fromEntries(
     "lvl-name", "xp", "xp-fill", "pts", "streak", "streak-chip", "fresh", "card", "tilt", "rank", "cat-icon",
     "cat-label", "subject", "num", "art", "art-icon", "kicker", "claim", "quote", "verdict", "explain", "clue",
     "status", "sources", "rank-note", "foil", "glare", "drag-call", "answers", "fake", "true", "next", "milestone",
-    "milestone-text", "settings", "set-sfx", "set-music", "set-volume", "set-haptics", "set-motion", "set-tilt", "set-drag", "set-palette", "set-text", "set-phone", "set-reset", "share-card", "share-card-msg", "details-btn", "details", "details-body", "stop2", "flash", "flash-text", "flash-sub", "banner", "rb-title", "rb-sub", "end", "end-level", "score", "best", "again", "share",
+    "milestone-text", "settings", "set-sfx", "set-music", "set-volume", "set-haptics", "set-motion", "set-tilt", "set-drag", "set-palette", "set-text", "set-phone", "set-install", "set-install-btn", "set-install-hint", "set-reset", "share-card", "share-card-msg", "details-btn", "details", "details-body", "stop2", "flash", "flash-text", "flash-sub", "banner", "rb-title", "rb-sub", "end", "end-level", "score", "best", "again", "share",
     "open-history2", "share-msg", "empty", "open-history3", "clear2", "history", "history-summary",
     "history-list", "history-back", "clear", "clear-msg", "live", "confirm", "confirm-text", "howto", "about",
-    "about-sources", "about-balance", "about-contest", "contest-link", "daily-btn", "daily-label", "daily-pips", "daily-streak", "daily-streak-n", "ach-btn", "ach", "ach-summary", "ach-list", "pips", "album-fill", "album-viewport", "album-track", "album-before", "album-after", "album-filters", "album-prev", "album-next", "album-page", "round-end", "re-date", "re-title", "re-stars", "re-score", "re-rank", "re-grid", "re-kinds", "re-streak", "re-new", "re-countdown", "re-share", "re-again", "re-album", "re-msg", "round-intro", "ri-big", "ri-sub",
+    "about-sources", "about-balance", "about-contest", "contest-link", "daily-btn", "daily-tag", "daily-label", "event-ad", "daily-pips", "daily-streak", "daily-streak-n", "ach-btn", "ach", "ach-summary", "ach-list", "pips", "album-fill", "album-viewport", "album-track", "album-before", "album-after", "album-filters", "album-prev", "album-next", "album-page", "round-end", "re-name", "re-date", "re-title", "re-stars", "re-score", "re-rank", "re-grid", "re-kinds", "re-streak", "re-new", "re-countdown", "re-share", "re-again", "re-album", "re-msg", "round-intro", "ri-name", "ri-big", "ri-sub",
   ].map((id) => [id.replace(/-(\w)/g, (_, c) => c.toUpperCase()), $(id)]),
 );
 const faceAsk = el.card.querySelector(".face.ask");
@@ -90,6 +94,8 @@ const buzz = (pattern) => {
   if (settings.get("haptics") && navigator.userActivation?.hasBeenActive) navigator.vibrate?.(pattern);
 };
 const OUT = "cubic-bezier(0.23, 1, 0.32, 1)";
+const SPRING = CSS.supports("animation-timing-function", "linear(0, 1)") ? "linear(0, 0.4 10%, 0.93 22%, 1.1 34%, 1.04 46%, 0.99 60%, 1.005 78%, 1)" : OUT;
+let swipeDir = 0; // lado para onde a carta anterior foi jogada; a próxima entra vindo do baralho, inclinada para o lado oposto
 
 let items = [];
 let history = [];
@@ -130,7 +136,7 @@ function ensureDaily() {
     daily = { key, ids: saved.ids.filter((id) => typeof id === "string"), results: saved.results.filter((r) => r && typeof r.id === "string" && typeof r.correct === "boolean") };
     return;
   }
-  daily = { key, ids: dailyDeck(items, key), results: [] };
+  daily = { key, ids: roundDeck(items, key), results: [] };
   store.set("vf:daily", daily);
 }
 
@@ -195,6 +201,9 @@ function renderDailyButton() {
   const n = dailyIds().length;
   const left = dailyLeft().length;
   const done = dailyDone();
+  const special = eventForDay(daily.key);
+  el.dailyTag.hidden = !special;
+  if (special) el.dailyTag.textContent = `★ ${EVENT_TAGS[special]}`;
   el.dailyLabel.textContent = done ? "Rodada do dia · feita" : left < n ? `Rodada do dia · ${n - left}/${n}` : "Rodada do dia";
   el.dailyBtn.dataset.state = done ? "done" : left < n ? "progress" : "fresh";
   el.dailyBtn.disabled = n === 0;
@@ -273,6 +282,7 @@ async function loadPool() {
     sourcesOpened = loadNumber("vf:sources");
     ensureDaily();
     titleReady();
+    announceEvent();
     el.live.textContent = "Cartas prontas. Toque em Jogar.";
     startTips();
   } catch {
@@ -313,10 +323,11 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 async function showRoundIntro() {
   const ids = dailyIds();
   const trues = ids.filter((id) => byId(id).verdict === "verdadeiro").length;
+  el.riName.textContent = roundName(daily.key);
   el.riBig.textContent = `${ids.length} cartas`;
   el.riSub.textContent = `${dayKey().split("-").reverse().join("/")} · ${trues} ${trues === 1 ? "fato" : "fatos"} e ${ids.length - trues} fakes`;
   el.roundIntro.hidden = false;
-  el.live.textContent = `Rodada do dia: ${ids.length} cartas.`;
+  el.live.textContent = `${roundName(daily.key)}: ${ids.length} cartas.`;
   sfx.play("start");
   music.sync();
   if (reducedMotion()) {
@@ -330,6 +341,47 @@ async function showRoundIntro() {
   }
   el.roundIntro.hidden = true;
 }
+
+// Aviso de abertura da edição especial: aparece uma única vez por pessoa (por edição, não por dia), só se ela ainda não começou a rodada.
+function announceEvent() {
+  const event = daily ? eventForDay(daily.key) : null;
+  if (!event || daily.results.length > 0) return;
+  const seen = Array.isArray(store.get("vf:eventSeen")) ? store.get("vf:eventSeen") : [];
+  if (seen.includes(event)) return;
+  store.set("vf:eventSeen", [...seen, event].slice(-10));
+  el.eventAd.returnValue = "";
+  el.eventAd.showModal();
+  el.eventAd.scrollTop = 0;
+  sfx.play("epic");
+}
+// Fecha com animação e som: o <dialog> nativo some na hora, então o fechamento espera a saída terminar.
+let eventAdClosing = false;
+function closeEventAd(value) {
+  if (eventAdClosing) return;
+  eventAdClosing = true;
+  sfx.play(value === "play" ? "start" : "whoosh");
+  const finish = () => {
+    eventAdClosing = false;
+    el.eventAd.classList.remove("closing");
+    el.eventAd.close(value);
+  };
+  if (reducedMotion()) return finish();
+  el.eventAd.classList.add("closing");
+  setTimeout(finish, 240);
+}
+for (const button of el.eventAd.querySelectorAll("button")) {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    closeEventAd(button.value);
+  });
+}
+el.eventAd.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeEventAd("later");
+});
+el.eventAd.addEventListener("close", () => {
+  if (el.eventAd.returnValue === "play") startDaily();
+});
 
 async function startDaily() {
   if (busy || !daily || el.dailyBtn.disabled) return;
@@ -386,6 +438,7 @@ async function showRoundEnd(fresh, animate) {
   const pause = (ms) => (instant || skipped ? Promise.resolve() : wait(ms));
   const alive = () => token === endToken;
 
+  el.reName.textContent = roundName(daily.key);
   el.reDate.textContent = dayKey().split("-").reverse().join("/");
   el.reStars.setAttribute("aria-label", `${stars} de 3 estrelas`);
   [...el.reStars.children].forEach((star) => (star.dataset.on = "false"));
@@ -481,7 +534,7 @@ async function showRoundEnd(fresh, animate) {
 async function shareDaily() {
   if (!daily) return;
   const results = dailyIds().map((id) => daily.results.find((r) => r.id === id)?.correct === true);
-  const text = `${dailyShareText(daily.key, results)}\n${location.origin}`;
+  const text = `${dailyShareText(daily.key, results, roundName(daily.key))}\n${location.origin}`;
   el.reShare.disabled = true;
   el.reMsg.textContent = "Preparando a imagem…";
   try {
@@ -508,7 +561,7 @@ function renderHud(animate = true, from = points) {
   const lv = levelFor(points);
   el.play.dataset.mode = mode === "daily" ? "daily" : "free";
   if (mode === "daily") renderPips();
-  el.lvlName.textContent = mode === "daily" && daily ? `Rodada do dia · ${Math.max(1, dailyIds().indexOf(current?.id) + 1 || daily.results.length + 1)}/${dailyIds().length}` : `Nv ${lv.level} · ${lv.name}`;
+  el.lvlName.textContent = mode === "daily" && daily ? `${roundName(daily.key)} · ${Math.max(1, dailyIds().indexOf(current?.id) + 1 || daily.results.length + 1)}/${dailyIds().length}` : `Nv ${lv.level} · ${lv.name}`;
   el.xpFill.style.setProperty("--xp", String(lv.progress));
   el.xp.setAttribute("aria-valuenow", String(Math.round(lv.progress * 100)));
   el.streak.textContent = String(streak);
@@ -681,9 +734,12 @@ function dressCard(card, rank, isNew) {
 function entrance(rank) {
   el.card.classList.remove("shine");
   if (reducedMotion()) return;
+  // A carta sai do baralho atrás da anterior: sobe, cresce e se endireita, para ficar claro que a carta mudou.
+  const tilt = swipeDir * -5;
+  swipeDir = 0;
   el.tilt.animate(
-    [{ opacity: 0, translate: "0 1rem", scale: "0.96" }, { opacity: 1, translate: "0", scale: "1" }],
-    { duration: rank === "comum" ? 180 : 260, easing: OUT },
+    [{ opacity: 0, translate: "0 2.25rem", scale: "0.86", rotate: `${tilt}deg` }, { opacity: 1, translate: "0", scale: "1", rotate: "0deg" }],
+    { duration: 460, easing: SPRING },
   );
   if (rank === "comum") return;
   void el.card.offsetWidth;
@@ -1282,10 +1338,11 @@ function resetCard() {
   wasArmed = false;
 }
 let flyAnim = null;
-let suppressClickUntil = 0;
 // Depois da resposta, arrastar para qualquer lado manda a carta embora e mostra a próxima.
 function flyOut(dx) {
+  if ((flyAnim && flyAnim.playState === "running") || advancing || busy) return resetCard();
   const dir = dx > 0 ? 1 : -1;
+  swipeDir = dir;
   el.card.classList.remove("dragging", "armed");
   sfx.play("flip");
   if (reducedMotion()) {
@@ -1294,8 +1351,11 @@ function flyOut(dx) {
     return;
   }
   flyAnim = el.card.animate(
-    [{ translate: "0", opacity: 1 }, { translate: `${dir * innerWidth}px`, opacity: 0 }],
-    { duration: 180, easing: "cubic-bezier(0.55, 0, 1, 0.45)", fill: "forwards" },
+    [
+      { translate: "0", rotate: "0deg", scale: "1", opacity: 1 },
+      { translate: `${dir * innerWidth * 0.9}px -1.5rem`, rotate: `${dir * 16}deg`, scale: "0.92", opacity: 0 },
+    ],
+    { duration: 260, easing: "cubic-bezier(0.55, 0, 1, 0.45)", fill: "forwards" },
   );
   flyAnim.finished.then(() => {
     resetCard();
@@ -1336,7 +1396,6 @@ el.card.addEventListener("pointerup", () => {
   if (!drag) return;
   const { dx, answered } = drag;
   drag = null;
-  if (Math.abs(dx) > 8) suppressClickUntil = Date.now() + 150;
   if (answered) {
     if (swipeDismiss(dx, THRESHOLD)) flyOut(dx);
     else resetCard();
@@ -1359,22 +1418,14 @@ el.card.addEventListener("lostpointercapture", () => {
 
 el.card.addEventListener("keydown", (event) => {
   const arrow = event.key === "ArrowRight" || event.key === "ArrowLeft";
-  if (arrow && el.card.dataset.state === "answer" && Date.now() - answeredAt >= 400) return advance();
+  if (arrow && el.card.dataset.state === "answer" && Date.now() - answeredAt >= 400) return flyOut(event.key === "ArrowRight" ? 1 : -1);
   if (event.key === "ArrowRight") answer(true);
   if (event.key === "ArrowLeft") answer(false);
   if ((event.key === "Enter" || event.key === " ") && event.target === el.card && el.card.dataset.state === "answer") {
     event.preventDefault();
-    advance();
+    flyOut(1);
   }
 });
-// Depois de conferir a checagem, tocar na carta também avança (atalho; o botão Próxima carta é o caminho principal).
-// Ignora toques nos links das fontes e exige uma pausa curta para um toque duplo não pular a leitura.
-el.card.addEventListener("click", (event) => {
-  if (el.card.dataset.state !== "answer" || event.target.closest("a")) return;
-  if (Date.now() - answeredAt < 400 || Date.now() < suppressClickUntil) return;
-  advance();
-});
-
 // ---------- Som e configurações ----------
 function renderSound() {
   const muted = settings.get("muted");
@@ -1420,6 +1471,7 @@ function openSettings() {
   syncSettingsUI();
   el.settings.showModal();
 }
+initInstall({ group: el.setInstall, button: el.setInstallBtn, hint: el.setInstallHint });
 el.setReset.addEventListener("click", () => {
   el.settings.close();
   askClear(() => showMenu());
@@ -1452,7 +1504,7 @@ el.aboutBtn.addEventListener("click", openAbout);
 el.retry.addEventListener("click", loadPool);
 el.true.addEventListener("click", () => answer(true));
 el.fake.addEventListener("click", () => answer(false));
-el.next.addEventListener("click", advance);
+el.next.addEventListener("click", () => flyOut(1));
 el.stop2.addEventListener("click", showScore);
 el.again.addEventListener("click", () => {
   if (mode === "daily") {

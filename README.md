@@ -4,7 +4,7 @@
 
 Edição do 2º turno de 2026: todas as cartas são sobre **Lula** e **Flávio Bolsonaro** (falas, números, boatos e vídeos que circularam sobre cada um), com o mesmo critério para os dois.
 
-> Projeto independente, sem fins lucrativos, sem anúncios, sem cadastro e sem coleta de dados. Não tem ligação com campanha, partido ou candidato, nem com os verificadores citados.
+> Projeto independente, sem fins lucrativos, sem anúncios, sem cadastro e sem coleta de dados pessoais. Não tem ligação com campanha, partido ou candidato, nem com os verificadores citados.
 
 | Início | Carta | Resposta | Rodada do dia | Álbum |
 |:--:|:--:|:--:|:--:|:--:|
@@ -82,7 +82,7 @@ O jogo também roda como site estático. `npm run build:pages` valida o baralho 
 
 ## Privacidade e segurança
 
-- **Nenhum dado pessoal é coletado.** Sem cadastro, sem cookies, sem analytics. Pontos, conquistas e a rodada do dia ficam só no `localStorage` do seu aparelho, e "Zerar progresso" apaga tudo.
+- **Nenhum dado pessoal é coletado.** Sem cadastro e sem cookies. O número de acessos é contado de forma agregada pelo Cloudflare Web Analytics, que não usa cookies nem identifica quem acessa. Pontos, conquistas e a rodada do dia ficam só no `localStorage` do seu aparelho, e "Zerar progresso" apaga tudo.
 - O servidor não grava IP: o limite de requisições guarda a chave só em memória, por 60 segundos.
 - Encontrou uma falha de segurança? Veja [`SECURITY.md`](SECURITY.md).
 

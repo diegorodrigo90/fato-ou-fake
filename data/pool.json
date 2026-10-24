@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "items": [
     {
       "id": "divida-11-tri",
@@ -28084,6 +28084,810 @@
         }
       ],
       "author": "terceiros"
+    },
+    {
+      "id": "ladrao-celular-cervejinha-flavio",
+      "author": "flavio",
+      "claim": "Segundo Flávio, Lula disse que ladrão de celular não deve ser preso porque só rouba para tomar uma cervejinha.",
+      "verdict": "falso",
+      "explanation": "É fake. A fala vem de uma entrevista de 2017 editada. Lula disse que se rouba celular para vender e ganhar dinheiro, por desesperança. A 'cerveja' era uma metáfora sobre as torcidas de Santa Cruz e Sport, que brigam no jogo e depois tomam cerveja juntas. O boato é desmentido desde 2020.",
+      "category": "discurso",
+      "status": "Checado por Lupa, UOL Confere e Estadão Verifica no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        },
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "bolsonaro-nao-debochou-falta-de-ar",
+      "author": "flavio",
+      "claim": "Segundo Flávio, é mentira que Bolsonaro debochou de pessoas com falta de ar; o vídeo completo mostraria o contrário.",
+      "verdict": "falso",
+      "explanation": "É fake. Em duas lives de 2021 (18 de março e 6 de maio), Jair Bolsonaro imitou uma pessoa sufocando ao criticar o ex-ministro Mandetta e defender o 'tratamento precoce', sem eficácia comprovada contra a Covid. A íntegra das transmissões não mostra sentido contrário.",
+      "category": "discurso",
+      "status": "Checado por Lupa, UOL Confere, Estadão Verifica e Aos Fatos no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        },
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "chocolate-120-para-80-gramas",
+      "author": "flavio",
+      "claim": "Segundo Flávio, por causa do governo Lula a barra de chocolate que tinha 120 g passou a ter 80 g.",
+      "verdict": "falso",
+      "explanation": "É fake. Barras de 80 g já eram vendidas em 2022, no governo Bolsonaro, e a redução de embalagens vem desde os anos 1990, puxada pelo custo de cacau, leite e açúcar. Uma portaria de 2021, do governo Bolsonaro, obrigou as empresas a avisar o consumidor sobre mudanças de quantidade.",
+      "category": "dinheiro",
+      "status": "Checado por Lupa e UOL Confere no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "juro-real-plano-safra-20",
+      "author": "flavio",
+      "claim": "Segundo Flávio, no Plano Safra o juro real cobrado dos produtores rurais chega perto de 20%.",
+      "verdict": "falso",
+      "explanation": "É fake. As taxas do Plano Safra 2026/2027 vão de 8% a 12,5% ao ano, antes de descontar a inflação. Com o IPCA de 4,58% em 12 meses (setembro), a maior taxa equivale a um juro real de cerca de 7,9%, bem longe dos 20%.",
+      "category": "dinheiro",
+      "status": "Classificado como falso pela Lupa no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "criar-casa-da-mulher-brasileira",
+      "author": "flavio",
+      "claim": "Segundo Flávio, ele vai criar a Casa da Mulher Brasileira para acolher mulheres vítimas de violência.",
+      "verdict": "falso",
+      "explanation": "É fake. A Casa da Mulher Brasileira já existe: foi criada por decreto em 2013, no governo Dilma, e a primeira unidade abriu em 2015, em Campo Grande. Em 2026 havia 13 unidades em funcionamento no país, com acolhimento, apoio jurídico e psicológico.",
+      "category": "instituicao",
+      "status": "Classificado como falso pela Lupa no debate da Globo; o Aos Fatos também apontou que o programa existe desde 2015.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "meta-esgoto-2033-para-2050",
+      "author": "flavio",
+      "claim": "Segundo Flávio, o governo Lula jogou de 2033 para depois de 2050 a meta de levar esgoto tratado a 90% da população.",
+      "verdict": "falso",
+      "explanation": "É fake. A Lei 14.026/2020, o Marco Legal do Saneamento, fixa 99% da população com água potável e 90% com coleta e tratamento de esgoto até 31 de dezembro de 2033. Essa data não foi alterada.",
+      "category": "lei",
+      "status": "Classificado como falso pelo Estadão Verifica no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "acabaram-com-a-cracolandia",
+      "author": "flavio",
+      "claim": "Segundo Flávio, Tarcísio, Ricardo Nunes e Derrite acabaram com a Cracolândia em São Paulo.",
+      "verdict": "falso",
+      "explanation": "É fake. Em maio de 2025 os usuários deixaram a rua dos Protestantes, mas se espalharam pelo centro. Relatório do governo estadual registrou usuários em 260 pontos da região da Santa Cecília, e os casos graves acompanhados pela prefeitura dobraram no 1º semestre de 2026 (447 contra 222).",
+      "category": "instituicao",
+      "status": "Classificado como falso pelo UOL Confere no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "santas-casas-governo-nada-fez",
+      "author": "flavio",
+      "claim": "Segundo Flávio, o governo Lula não fez nada para ajudar a reduzir a dívida das santas casas.",
+      "verdict": "falso",
+      "explanation": "É fake. Em junho de 2026, o Ministério da Saúde e a Caixa liberaram R$ 1 bilhão em crédito para hospitais filantrópicos e santas casas. Em agosto, Lula sancionou lei que reabriu o programa Caixa Hospitais FGTS, crédito com recursos do FGTS, com prazo até 2030. A dívida do setor chegou a R$ 15 bilhões em 2025.",
+      "category": "dinheiro",
+      "status": "Classificado como falso pelo Aos Fatos no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "marco-saneamento-governo-bolsonaro",
+      "author": "flavio",
+      "claim": "Segundo Flávio, foi o governo Bolsonaro que fez o Marco Legal do Saneamento Básico.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. O novo marco, sancionado em 2020, veio do projeto de lei 4.162/2019, enviado pelo Executivo no primeiro ano de Bolsonaro. Ele fixou metas de 99% da população com água potável e 90% com esgoto até 2033. Antes já existia a Lei 11.445/2007, que o novo texto revisou.",
+      "category": "lei",
+      "status": "Classificado como verdadeiro pela Lupa no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "centro-oeste-mais-produz-alimentos",
+      "author": "flavio",
+      "claim": "Segundo Flávio, o Centro-Oeste é a região que mais produz alimentos no Brasil.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. O Centro-Oeste tem o maior Valor Bruto da Produção Agropecuária entre as regiões: R$ 431,2 bilhões, segundo boletim do Ministério da Agricultura de 23/10/2026. Só Mato Grosso responde por R$ 225,2 bilhões, 15,6% do total do país.",
+      "category": "dinheiro",
+      "status": "Classificado como verdadeiro pela Lupa no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "fila-cancer-tireoide-700-dias",
+      "author": "flavio",
+      "claim": "Segundo Flávio, a espera por uma cirurgia de câncer de tireoide no SUS passou de 700 dias.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Relatório do TCU de junho de 2026 apontou fila de 719 dias em 2025 para essa cirurgia. A série oscila muito: 1.121 dias em 2022, 421 em 2023 e 75 em 2024.",
+      "category": "instituicao",
+      "status": "Classificado como verdadeiro pela Lupa no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "wifi-brasil-21-mil-pontos",
+      "author": "flavio",
+      "claim": "Segundo Flávio, o governo Bolsonaro instalou mais de 21 mil pontos de internet em mais de 3,1 mil cidades, atendendo 11 milhões de pessoas.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Até dezembro de 2022, o programa Wi-Fi Brasil, do Ministério das Comunicações, tinha instalado 21,3 mil pontos de internet gratuita em cerca de 3,2 mil municípios, beneficiando 11 milhões de pessoas em escolas, postos de saúde e comunidades isoladas.",
+      "category": "instituicao",
+      "status": "Checado por Estadão Verifica, UOL Confere e Aos Fatos no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        },
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "carga-tributaria-mais-alta-historia",
+      "author": "flavio",
+      "claim": "Segundo Flávio, o governo Lula implementou a carga tributária mais alta da história do país.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. A carga tributária bruta do governo geral (União, estados e municípios) subiu de 32,22% para 32,40% do PIB entre 2024 e 2025, o maior nível da série do Tesouro Nacional, que começa em 2010. A alta foi puxada pelo governo central, de 21,34% para 21,60% do PIB.",
+      "category": "dinheiro",
+      "status": "Classificado como verdadeiro pelo Estadão Verifica no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "reajuste-bolsa-familia-3-reais-dia",
+      "author": "flavio",
+      "claim": "Segundo Flávio, Lula só reajustou o Bolsa Família agora, em plena campanha, e em cerca de R$ 3 por dia.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Em outubro de 2026 o governo anunciou reajuste de 15,04% no Bolsa Família: o piso por família passou de R$ 600 para R$ 691, cerca de R$ 3 a mais por dia. Segundo o Ministério do Desenvolvimento Social, foi a primeira correção pela inflação desde março de 2023.",
+      "category": "dinheiro",
+      "status": "Classificado como verdadeiro pelo Estadão Verifica no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "milei-211-inflacao-juros-100",
+      "author": "flavio",
+      "claim": "Segundo Flávio, Milei começou a governar a Argentina com inflação de 211% e juros de 100%, herdados de governos de esquerda.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. A inflação argentina fechou 2023 em 211,4%, último ano do governo peronista que antecedeu Milei, alinhado a Lula. No último mês desse governo, o Banco Central argentino fixou a taxa básica de juros em 100%.",
+      "category": "dinheiro",
+      "status": "Classificado como verdadeiro pelo UOL Confere no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "ilha-angra-transitou-em-julgado",
+      "author": "flavio",
+      "claim": "Segundo Flávio, a disputa pela ilha em Angra dos Reis entre Richarlison e o advogado Willer Tomaz já acabou na Justiça, com decisão definitiva.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Em junho de 2025, a 3ª Turma do STJ rejeitou o último recurso do jogador e confirmou a posse do imóvel a Willer Tomaz, amigo de Flávio, que já tinha vencido no TJ-RJ. Flávio diz não ter relação com a compra, mas aparece no processo como testemunha de Tomaz.",
+      "category": "tribunal",
+      "status": "Classificado como verdadeiro pelo Aos Fatos no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "tigrinho-criado-por-bolsonaro-2022",
+      "author": "lula",
+      "claim": "Segundo Lula, o 'Tigrinho', as apostas online, foi criado pelo governo Bolsonaro em 2022.",
+      "verdict": "falso",
+      "explanation": "É fake. As apostas online foram legalizadas pela Lei 13.756/2018, sancionada por Michel Temer no fim de 2018, com prazo de até quatro anos para regulamentar. O governo Bolsonaro não regulamentou, e o setor funcionou sem regras e sem impostos. A regulamentação veio em 2023, no governo Lula.",
+      "category": "lei",
+      "status": "Classificado como falso pela Lupa no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "fotos-flavio-com-vorcaro",
+      "author": "lula",
+      "claim": "Segundo Lula, existem fotos de Flávio abraçado com o banqueiro Daniel Vorcaro.",
+      "verdict": "falso",
+      "explanation": "É fake. Não há registro de fotos de Flávio com Vorcaro. A foto que circulou mostra Flávio com Luiz Phillipi Mourão, o 'Sicário' de Vorcaro, em 2022. Já as mensagens no celular do banqueiro, obtidas pela PF, registram três meses de conversas com Flávio e menções a seis encontros.",
+      "category": "documento",
+      "status": "Classificado como falso pelo Estadão Verifica no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "nunca-se-exportou-tanto",
+      "author": "lula",
+      "claim": "Segundo Lula, nunca se exportou tanto no Brasil quanto no governo dele.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Em 2025 o Brasil exportou US$ 348,3 bilhões, recorde da série do MDIC iniciada em 1997, acima dos US$ 339,7 bilhões de 2023. De janeiro a setembro de 2026 foram US$ 284,6 bilhões, alta de 10,4% sobre o mesmo período de 2025.",
+      "category": "dinheiro",
+      "status": "Checado por Lupa, Estadão Verifica, UOL Confere e Aos Fatos no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        },
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "700-novos-mercados-agro",
+      "author": "lula",
+      "claim": "Segundo Lula, o governo dele abriu 700 novos mercados para produtos brasileiros.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Em outubro de 2026 o Ministério da Agricultura anunciou a marca de 700 aberturas de mercado para produtos agropecuários desde 2023, em 99 destinos. Cada abertura é a autorização para exportar um produto a um país, não 700 países novos.",
+      "category": "dinheiro",
+      "status": "Checado por Lupa, UOL Confere e Aos Fatos no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        },
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "bolsa-farelo-flavio",
+      "author": "lula",
+      "claim": "Segundo Lula, Flávio chamou o Bolsa Família de 'bolsa farelo'.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Em novembro de 2011, como deputado estadual, Flávio chamou de 'bolsa farelo' um programa estadual que complementava o Bolsa Família. Em 2013, postou que o PT 'perpetua a pobreza com o bolsa-farelo'. Os posts foram apagados, mas recuperados pela imprensa em 2026.",
+      "category": "discurso",
+      "status": "Checado por Lupa, Estadão Verifica, UOL Confere e Aos Fatos no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        },
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "vacina-virar-jacare-bolsonaro",
+      "author": "lula",
+      "claim": "Segundo Lula, no governo Bolsonaro se dizia que quem tomasse vacina ia virar jacaré ou ficar gay.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Em 17 de dezembro de 2020, na Bahia, Bolsonaro disse, em tom de ironia, que a Pfizer não se responsabilizava se alguém 'virar um jacaré' ou 'começar a falar fino' ao tomar a vacina contra a Covid. A fala foi dada um mês antes do início da vacinação no Brasil.",
+      "category": "discurso",
+      "status": "Classificado como verdadeiro pela Lupa no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "perdao-divida-mei-15-bi",
+      "author": "lula",
+      "claim": "Segundo Lula, nesta semana o governo anunciou o perdão de quase R$ 15 bilhões em dívidas de 4 milhões de MEIs.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato, com números arredondados. A lei do perdão de dívidas dos microempreendedores individuais foi sancionada em 21 de outubro de 2026. O governo estima alcançar 3,6 milhões de MEIs com R$ 12,57 bilhões inscritos na Dívida Ativa da União. É uma estimativa, não dívida já baixada.",
+      "category": "dinheiro",
+      "status": "Classificado como verdadeiro pela Lupa no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "desenrola-3-copiado-flavio",
+      "author": "lula",
+      "claim": "Segundo Lula, ao prometer comprar a dívida dos devedores, Flávio copia uma medida que o governo já enviou ao Congresso.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. A Medida Provisória 1.393, de 25 de setembro de 2026, criou o Desenrola Brasil 3.0 e autoriza a União a comprar carteiras de dívidas atrasadas de pessoas físicas, com deságio de até 90%. A MP já vale, mas precisa ser aprovada pelo Congresso.",
+      "category": "lei",
+      "status": "Checado por Lupa e UOL Confere no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "lei-geral-pequena-empresa-lula",
+      "author": "lula",
+      "claim": "Segundo Lula, foi o governo dele que fez a lei da pequena e média empresa.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Lula sancionou a Lei Complementar 123/2006, a Lei Geral da Micro e Pequena Empresa, há 20 anos. Ela simplificou o pagamento de impostos federais, estaduais e municipais e criou o Simples Nacional. A Lupa ressalta que a lei não é nova.",
+      "category": "lei",
+      "status": "Classificado como verdadeiro pela Lupa no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "nordeste-2003-mais-pobres",
+      "author": "lula",
+      "claim": "Segundo Lula, em 2003 o Nordeste era a região com mais pobres, desnutridos e evasão escolar do país.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. O Mapa da Pobreza e Desigualdade do IBGE, de 2003, mostrou que 77% dos municípios nordestinos tinham mais da metade da população na pobreza. O Mapa da Exclusão, do MEC, apontou que 41% das crianças fora da escola no país (cerca de 615 mil) viviam no Nordeste.",
+      "category": "documento",
+      "status": "Classificado como verdadeiro pelo Estadão Verifica no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "ceara-mais-aprova-ita",
+      "author": "lula",
+      "claim": "Segundo Lula, o Ceará é o estado que mais aprova alunos para o ITA, o Instituto Tecnológico de Aeronáutica.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Entre as cidades com mais aprovados na primeira fase do vestibular do ITA de 2026, Fortaleza ficou em primeiro lugar, com 281 aprovados, à frente de São José dos Campos (SP) e São Paulo. O vestibular é um dos mais difíceis do país.",
+      "category": "documento",
+      "status": "Classificado como verdadeiro pelo Estadão Verifica no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/debate-tv-globo-checagem-tempo-real-ao-vivo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "flavio-defendeu-milicia-alerj",
+      "author": "lula",
+      "claim": "Segundo Lula, Flávio fez discurso na Alerj defendendo milicianos e deu condecoração a um miliciano.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Em 2007, na Alerj, Flávio disse que milícias não deviam ser estigmatizadas, pois 'se organizam para que o tráfico não impere'. Deu moção de louvor (2003) e a Medalha Tiradentes (2005) a Adriano da Nóbrega, então preso por homicídio e depois apontado como chefe do Escritório do Crime. Também empregou a mãe e a mulher dele.",
+      "category": "discurso",
+      "status": "Checado por UOL Confere e Aos Fatos no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/24/debate-globo-checagem-flavio-lula.ghtm",
+          "date": "2026-10-24"
+        },
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "flavio-defesa-pm-delaroli",
+      "author": "lula",
+      "claim": "Segundo Lula, Flávio atua na defesa do policial militar acusado de matar a menina Ana Clara, de 5 anos, com um tiro de fuzil.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Flávio integra a defesa do PM Bruno Delaroli, acusado pela morte de Ana Clara em operação em Niterói, em 2021. Em 2024, já senador, assinou recurso ao STJ para evitar o júri popular; o pedido foi negado. A atuação é gratuita, via Instituto Família Policial. O PM nega o disparo e aguarda julgamento.",
+      "category": "tribunal",
+      "status": "Confirmado pelo Aos Fatos no debate da Globo; a Lupa também registra que Flávio faz parte da defesa.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        },
+        {
+          "label": "Lupa",
+          "type": "agencia",
+          "url": "https://www.agencialupa.org/checagem/2026/10/23/ao-vivo-checagem-do-ultimo-debate-entre-lula-e-flavio-bolsonaro-no-segundo-turno/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "rs-mais-aposentados-proporcao",
+      "author": "lula",
+      "claim": "Segundo Lula, o Rio Grande do Sul é o estado com a maior proporção de aposentados do Brasil.",
+      "verdict": "verdadeiro",
+      "explanation": "É fato. Segundo o IBGE, em 2025 o Rio Grande do Sul era o estado com maior porcentagem de aposentados e pensionistas entre as pessoas com rendimento: 20,3%. Santa Catarina vem em segundo, com 15,6%.",
+      "category": "documento",
+      "status": "Confirmado pelo Aos Fatos no debate da Globo.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/checamos-flavio-bolsonaro-lula-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ],
+      "event": "debate-globo"
+    },
+    {
+      "id": "lula-passou-mal-debate-globo",
+      "author": "terceiros",
+      "claim": "Post viral: Lula passou mal, os médicos se assustaram com os exames e ele não vai ao debate da Globo.",
+      "verdict": "falso",
+      "explanation": "É fake. O vídeo usado é de 15 de dezembro de 2024, quando Lula deu entrevista ao sair do hospital após drenar um hematoma na cabeça. Não há registro de problema de saúde recente: o check-up de março de 2026 saiu normal. Lula participou do debate da Globo em 23 de outubro de 2026.",
+      "category": "documento",
+      "status": "Classificado como falso pelo Aos Fatos em 23/10/2026.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/falso-que-lula-passou-mal-nao-vai-debate-globo/",
+          "date": "2026-10-23"
+        }
+      ]
+    },
+    {
+      "id": "audio-lula-xinga-luchsinger",
+      "author": "terceiros",
+      "claim": "Áudio viral: Lula aparece xingando Roberta Luchsinger e reclamando da entrevista dela à CNN Brasil.",
+      "verdict": "falso",
+      "explanation": "É fake. Perícia do núcleo de computação forense da USP e da UFABC concluiu que o áudio é síntese de voz, com 99,2% de confiança. Especialistas da ONG Witness também apontaram alta probabilidade de falsificação. A Secom negou o áudio e não há registro da fala em nenhuma fonte.",
+      "category": "documento",
+      "status": "Classificado como falso pelo Aos Fatos em 22/10/2026.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Aos Fatos",
+          "type": "agencia",
+          "url": "https://www.aosfatos.org/noticias/falso-audio-lula-roberta-luchsinger-cnn/",
+          "date": "2026-10-22"
+        }
+      ]
+    },
+    {
+      "id": "flavio-30-dias-ferias-exagero",
+      "author": "terceiros",
+      "claim": "Post viral: Flávio disse que 30 dias de férias é um exagero e que 15 dias são mais do que suficientes.",
+      "verdict": "falso",
+      "explanation": "É fake. Não há registro da frase, apresentada num card falso com logo da Jovem Pan. A campanha chamou a montagem de 'fake news notória'. O plano de governo de Flávio fala em reduzir o custo do trabalho 'sem retirar direitos' e não propõe mexer nas férias, que a CLT fixa em 30 dias.",
+      "category": "discurso",
+      "status": "Classificado como falso pelo Estadão Verifica em 22/10/2026.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/flavio-bolsonaro-ferias-trinta-dias-exagero-fake-news/",
+          "date": "2026-10-22"
+        }
+      ]
+    },
+    {
+      "id": "audio-coordenador-flavio-golpe",
+      "author": "terceiros",
+      "claim": "Áudio viral: o coordenador da campanha de Flávio revela plano de cortar o Bolsa Família, reduzir aposentadorias e dar um golpe de Estado.",
+      "verdict": "falso",
+      "explanation": "É fake. A voz não é de Rogério Marinho, coordenador da campanha. Ele nem esteve nas duas reuniões públicas de Flávio com ACM Neto citadas no áudio: estava hospitalizado em 6 de outubro. Nenhum veículo noticiou o suposto vazamento e a campanha disse que o material é falso.",
+      "category": "documento",
+      "status": "Classificado como falso pelo UOL Confere em 22/10/2026.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/22/falso-desinformacao-audio-coordenador-campanha-flavio-golpe-cortes.ghtm",
+          "date": "2026-10-22"
+        }
+      ]
+    },
+    {
+      "id": "pt-cut-invadiram-igreja-joinville",
+      "author": "terceiros",
+      "claim": "Vídeo viral: militantes do PT e da CUT invadiram a Igreja da Paz, em Joinville (SC).",
+      "verdict": "falso",
+      "explanation": "É fake. O vídeo é de outubro de 2022 e mostra protesto de alunos contra a demissão de uma professora da faculdade Ielusc, que divide o terreno com a igreja. Os manifestantes entraram no prédio da faculdade, não no templo. A própria igreja negou invasão na época, e PT e CUT não organizaram o ato.",
+      "category": "documento",
+      "status": "Classificado como falso pelo UOL Confere em 22/10/2026.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "UOL Confere",
+          "type": "agencia",
+          "url": "https://noticias.uol.com.br/confere/ultimas-noticias/2026/10/22/falso-manifestantes-pt-cut-invasao-igreja-joinville.ghtm",
+          "date": "2026-10-22"
+        }
+      ]
+    },
+    {
+      "id": "fraude-transmissao-votos-tse",
+      "author": "terceiros",
+      "claim": "Vídeo viral: é possível alterar os votos durante a transmissão dos resultados das urnas até o TSE.",
+      "verdict": "falso",
+      "explanation": "É fake. Ao fim da votação, cada urna assina digitalmente seus arquivos de resultado com uma chave própria, guardada em chip de segurança. Qualquer alteração, mesmo de um voto, invalida a assinatura e o arquivo é rejeitado; a conferência é feita mais de uma vez até a totalização. O TSE diz que não há como adulterar votos.",
+      "category": "urna",
+      "status": "Classificado como falso pelo Estadão Verifica em 22/10/2026.",
+      "asOf": "2026-10-24",
+      "sources": [
+        {
+          "label": "Estadão Verifica",
+          "type": "agencia",
+          "url": "https://www.estadao.com.br/estadao-verifica/frude-transmissao-alteracao-votos-leicoes/",
+          "date": "2026-10-22"
+        }
+      ]
     }
   ]
 }

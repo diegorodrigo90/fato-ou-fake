@@ -1,5 +1,7 @@
 // Rodada do dia e conquistas: lógica pura, sem tela e sem armazenamento (o app guarda no aparelho).
 export const DAILY_SIZE = 10;
+// Rodada de edição especial: mais cartas, porque o baralho da edição é fechado.
+export const EVENT_SIZE = 15;
 
 /**
  * Data local no formato AAAA-MM-DD: a rodada vira à meia-noite do aparelho de cada pessoa.
@@ -99,6 +101,54 @@ export function dailyDeck(items, key, size = DAILY_SIZE) {
   return shuffled([...pickTrue, ...pickFake], rng).map((card) => card.id);
 }
 
+/** Dias com rodada especial: a rodada do dia sai só das cartas da edição, sem repetir carta entre os dias. */
+export const EVENT_DAYS = {
+  "2026-10-24": "debate-globo",
+  "2026-10-25": "debate-globo",
+};
+export const EVENT_NAMES = { "debate-globo": "Especial Debate" };
+export const EVENT_TAGS = { "debate-globo": "Especial Debate" };
+
+/**
+ * @param {string} key  dayKey()
+ * @returns {string | null} edição especial do dia
+ */
+export function eventForDay(key) {
+  return EVENT_DAYS[key] ?? null;
+}
+
+/**
+ * Rodada do dia, ou a rodada especial quando o dia tem uma edição e há cartas para ela.
+ * Os dias da mesma edição saem em ordem e não repetem carta.
+ * @template {{id: string, verdict: string, author?: string, event?: string}} T
+ * @param {T[]} items
+ * @param {string} key
+ * @param {number} [size]
+ * @returns {string[]}
+ */
+export function roundDeck(items, key, size = DAILY_SIZE) {
+  const event = eventForDay(key);
+  if (!event) return dailyDeck(items, key, size);
+  const eventSize = EVENT_SIZE;
+  let pool = items.filter((card) => card.event === event);
+  for (const day of Object.keys(EVENT_DAYS).sort()) {
+    if (day >= key) break;
+    if (EVENT_DAYS[day] !== event) continue;
+    const used = new Set(dailyDeck(pool, day, eventSize));
+    pool = pool.filter((card) => !used.has(card.id));
+  }
+  return pool.length >= eventSize ? dailyDeck(pool, key, eventSize) : dailyDeck(items, key, size);
+}
+
+/**
+ * @param {string} key
+ * @returns {string} nome da rodada do dia
+ */
+export function roundName(key) {
+  const event = eventForDay(key);
+  return event ? EVENT_NAMES[event] : "Rodada do dia";
+}
+
 /**
  * Boato que circulou (post, vídeo, áudio) ou fala de político.
  * @param {{claim: string}} card
@@ -150,12 +200,13 @@ export function currentDayStreak(days, today) {
  * Texto para compartilhar a rodada: só a data, a nota e um quadrado por carta, sem nomes de ninguém.
  * @param {string} key
  * @param {boolean[]} results
+ * @param {string} [name]
  * @returns {string}
  */
-export function dailyShareText(key, results) {
+export function dailyShareText(key, results, name = "Rodada") {
   const hits = results.filter(Boolean).length;
   const squares = results.map((ok) => (ok ? "🟩" : "🟥")).join("");
-  return `Fato ou Fake? Rodada de ${key.split("-").reverse().join("/")}\n${hits}/${results.length} ${squares}`;
+  return `Fato ou Fake? ${name} de ${key.split("-").reverse().join("/")}\n${hits}/${results.length} ${squares}`;
 }
 
 /**
@@ -235,7 +286,7 @@ export const ACHIEVEMENTS = [
   { id: "foi-conferir", title: "Foi conferir", desc: "Abra o link de uma fonte.", goal: 1, value: (s) => s.sourcesOpened },
   { id: "conferidor", title: "Conferidor", desc: "Abra 10 links de fontes.", goal: 10, value: (s) => s.sourcesOpened },
   { id: "rodada-do-dia", title: "Rodada do dia", desc: "Termine uma rodada do dia.", goal: 1, value: (s) => s.dailyDays.length },
-  { id: "rodada-perfeita", title: "Rodada perfeita", desc: "Acerte as 10 cartas de uma rodada do dia.", goal: 1, value: (s) => s.dailyPerfect },
+  { id: "rodada-perfeita", title: "Rodada perfeita", desc: "Acerte todas as cartas de uma rodada do dia.", goal: 1, value: (s) => s.dailyPerfect },
   { id: "tres-dias", title: "Três dias seguidos", desc: "Termine a rodada do dia em 3 dias seguidos.", goal: 3, value: (s) => bestDayStreak(s.dailyDays) },
   { id: "semana-completa", title: "Semana completa", desc: "Termine a rodada do dia em 7 dias seguidos.", goal: 7, value: (s) => bestDayStreak(s.dailyDays) },
   { id: "cacador-de-boatos", title: "Caçador de boatos", desc: "Acerte 5 posts, vídeos ou áudios que circularam.", goal: 5, value: (s) => s.viral },
