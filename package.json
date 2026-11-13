@@ -14,7 +14,7 @@
     "build:pages": "tsx scripts/build-pages.ts"
   },
   "dependencies": {
-    "@hono/node-server": "2.1.5",
+    "@hono/node-server": "2.1.6",
     "hono": "4.13.13",
     "hono-rate-limiter": "0.5.4",
     "zod": "4.6.7"
